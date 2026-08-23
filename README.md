@@ -39,6 +39,10 @@ read off the current down.
 | Original (do not modify) | `3db840dfeff4095d8508aa97`, workspace `468073bad9de0e9ca2287d8a` |
 | Working copy (edit this) | `00b1e7c9d07aec2789568fab`, workspace `f48449999f7a6cf5db9ca973` |
 
+Both documents are the work of James Nadeau, who authored the original model
+and holds the rights licensed under [OCL v1.1](#licence). Nothing here is
+derived from a third party's design.
+
 The copy was made by hand — the API cannot clone a document. Working in the
 copy keeps the original intact and preserves the parametric feature tree.
 
