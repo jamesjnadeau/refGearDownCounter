@@ -727,7 +727,7 @@ union() {
 cd down-indicator && make test
 ```
 
-Expected: PASS, 22 tests. `lugs.volume` is 8886.88mm³, exactly 846.88mm³ over the blank.
+Expected: PASS, 21 tests. `lugs.volume` is 8886.88mm³, exactly 846.88mm³ over the blank.
 
 - [ ] **Step 6: Commit**
 
