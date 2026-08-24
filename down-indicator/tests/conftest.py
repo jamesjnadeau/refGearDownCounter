@@ -87,3 +87,8 @@ def blank():
 @pytest.fixture(scope="session")
 def cord():
     return render("tests/scad/cord_only.scad")
+
+
+@pytest.fixture(scope="session")
+def lugs():
+    return render("tests/scad/lugs_only.scad")
