@@ -12,6 +12,7 @@ test: $(VENV)
 	$(VENV)/bin/pytest -q
 
 stl: build/down_indicator.stl
+	@ls -lh $< | awk '{print "ready: $< (" $$5 ")"}'
 
 build/down_indicator.stl: down_indicator.scad $(wildcard lib/*.scad)
 	@mkdir -p build
