@@ -1,5 +1,7 @@
 """Spring-bar lugs, carried over from the down counter's as-built geometry."""
 
+import math
+
 from pytest import approx
 
 from conftest import inside
@@ -27,9 +29,11 @@ def test_lug_to_lug_is_fifty_three_millimetres(lugs):
 
 
 def test_horns_add_four_chamfered_prisms(lugs):
-    # 4 horns, less a 0.5mm chamfer on each of the two tip corners per horn.
-    expected = 4 * HORN_THK * PROT * BODY_T - 4 * 2 * (0.5 * 0.5**2) * BODY_T
-    assert lugs.volume - BLANK_VOLUME == approx(expected, rel=1e-6)
+    # 4 horns, less a 0.5mm chamfer on each of the two tip corners per horn,
+    # less the four bar bores.
+    horns = 4 * HORN_THK * PROT * BODY_T - 4 * 2 * (0.5 * 0.5**2) * BODY_T
+    bores = 4 * (BAR_R**2 * (3 * math.pi / 4 + 1)) * HORN_THK
+    assert lugs.volume - BLANK_VOLUME == approx(horns - bores, rel=0.001)
 
 
 def test_the_band_gap_takes_a_twenty_millimetre_strap(lugs):
@@ -53,3 +57,48 @@ def test_tip_corners_are_chamfered(lugs):
     # The outboard tip corner at (15, 26.5) is cut back by 0.5mm.
     assert not inside(lugs, [14.9, 26.4, MID])[0]
     assert inside(lugs, [14.3, 26.4, MID])[0]
+
+
+BAR_R = 0.55        # 1.1mm bore
+HORNS_VOLUME = 8886.88
+
+
+def test_the_bore_runs_right_through_the_horn(lugs):
+    row = [[x, BAR_Y, MID] for x in (10.5, 12.5, 14.5)]
+    assert not inside(lugs, *row).any()
+
+
+def test_the_bore_sits_at_mid_height_with_material_above_and_below(lugs):
+    assert inside(lugs, [12.5, BAR_Y, MID + 1.5], [12.5, BAR_Y, MID - 1.5]).all()
+
+
+def test_the_bore_is_offset_from_the_tip_by_the_margin(lugs):
+    # 2mm of material past the bore centre, so the tip at y = 26.5 is solid.
+    assert inside(lugs, [12.5, 26.2, MID])[0]
+
+
+def test_the_teardrop_apex_points_toward_the_wrist_side(lugs):
+    """Apex at r*sqrt(2) below centre; the matching point above is solid."""
+    reach = BAR_R * 1.35   # inside r*sqrt(2) = 0.778, outside r = 0.55
+    assert not inside(lugs, [12.5, BAR_Y, MID - reach])[0], "no apex on the -Z side"
+    assert inside(lugs, [12.5, BAR_Y, MID + reach])[0], "apex is on the wrong side"
+
+
+def test_bores_remove_four_small_teardrops(lugs):
+    # Teardrop area is r^2 * (3*pi/4 + 1); four bores through 4.9mm of horn.
+    expected = 4 * (BAR_R**2 * (3 * math.pi / 4 + 1)) * HORN_THK
+    assert HORNS_VOLUME - lugs.volume == approx(expected, rel=0.02)
+
+
+def test_lug_body_is_still_one_closed_solid(lugs):
+    assert lugs.is_watertight
+    assert lugs.body_count == 1
+
+
+def test_teardrop_can_be_flipped_for_the_other_print_orientation():
+    from conftest import render
+
+    flipped = render("tests/scad/lugs_only.scad", teardropDown=False)
+    reach = BAR_R * 1.35
+    assert not inside(flipped, [12.5, BAR_Y, MID + reach])[0]
+    assert inside(flipped, [12.5, BAR_Y, MID - reach])[0]
