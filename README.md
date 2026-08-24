@@ -23,6 +23,8 @@ the two cannot be confused again.
 | File | What it is |
 | --- | --- |
 | [2026-08-22-band-lugs-design.md](2026-08-22-band-lugs-design.md) | Design and as-built record for the spring-bar band lugs, the squared end corners, and the removal of the unprintable "4" counter. Built 2026-08-22, not yet printed. |
+| [2026-08-24-finger-loop-indicator-design.md](2026-08-24-finger-loop-indicator-design.md) | Design for the finger-loop down indicator: a wrist body anchoring a bungee cord that loops over a finger. Modelled in OpenSCAD under `down-indicator/`, not in Onshape. |
+| [down-indicator/](down-indicator/) | The OpenSCAD model for the above, with a `pytest` suite that renders it and asserts against the mesh. |
 | [AGENTS.md](AGENTS.md) | Working notes for agents. Chiefly: if you cannot delete something you created in Onshape, hand back an explicit cleanup list rather than leaving orphans unmentioned. |
 | [LICENSE](LICENSE) | Open Community License v1.1, verbatim. See [Licence](#licence). |
 
@@ -124,6 +126,20 @@ geometry.
 **Not yet printed.** A single-end test piece with a real spring bar and strap
 should come before a full case print, and the wear orientation still needs
 confirming — see the spec.
+
+## The finger-loop down indicator
+
+A third device, and the first one whose model is version-controlled here
+rather than living in Onshape. A 40 x 30 x 6.7mm body on a 20mm watch strap,
+with two 7mm holes opening through side-loading slots to each end; a bungee
+cord presses into the slots, runs over the back of the hand and loops over a
+finger. The finger is the down selector.
+
+It reuses the down counter's spring-bar lug geometry — 20mm band, 20.2mm gap,
+teardrop bores — and nothing else. Its footprint is its own.
+
+See [the design](2026-08-24-finger-loop-indicator-design.md) and
+[down-indicator/README.md](down-indicator/README.md).
 
 ## Related Onshape documents
 

@@ -92,3 +92,8 @@ def cord():
 @pytest.fixture(scope="session")
 def lugs():
     return render("tests/scad/lugs_only.scad")
+
+
+@pytest.fixture(scope="session")
+def part():
+    return render("down_indicator.scad")
