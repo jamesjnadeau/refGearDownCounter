@@ -82,3 +82,8 @@ def inside(mesh, *points) -> np.ndarray:
 @pytest.fixture(scope="session")
 def blank():
     return render("tests/scad/body_only.scad")
+
+
+@pytest.fixture(scope="session")
+def cord():
+    return render("tests/scad/cord_only.scad")
