@@ -77,11 +77,19 @@ def test_the_bore_is_offset_from_the_tip_by_the_margin(lugs):
     assert inside(lugs, [12.5, 26.2, MID])[0]
 
 
+# All four bores: (x = +-12.5) x (y = +-BAR_Y). Every one of them has to point
+# the same way, or half the part prints with an unsupported crown.
+HORNS = [(sx * 12.5, sy * BAR_Y) for sx in (-1, 1) for sy in (-1, 1)]
+REACH = BAR_R * 1.35   # inside the apex at r*sqrt(2) = 0.778, outside r = 0.55
+
+
 def test_the_teardrop_apex_points_toward_the_wrist_side(lugs):
     """Apex at r*sqrt(2) below centre; the matching point above is solid."""
-    reach = BAR_R * 1.35   # inside r*sqrt(2) = 0.778, outside r = 0.55
-    assert not inside(lugs, [12.5, BAR_Y, MID - reach])[0], "no apex on the -Z side"
-    assert inside(lugs, [12.5, BAR_Y, MID + reach])[0], "apex is on the wrong side"
+    for x, y in HORNS:
+        assert not inside(lugs, [x, y, MID - REACH])[0], \
+            f"no apex on the -Z side of the horn at ({x}, {y})"
+        assert inside(lugs, [x, y, MID + REACH])[0], \
+            f"apex is on the wrong side of the horn at ({x}, {y})"
 
 
 def test_bores_remove_four_small_teardrops(lugs):
@@ -99,6 +107,8 @@ def test_teardrop_can_be_flipped_for_the_other_print_orientation():
     from conftest import render
 
     flipped = render("tests/scad/lugs_only.scad", teardropDown=False)
-    reach = BAR_R * 1.35
-    assert not inside(flipped, [12.5, BAR_Y, MID + reach])[0]
-    assert inside(flipped, [12.5, BAR_Y, MID - reach])[0]
+    for x, y in HORNS:
+        assert not inside(flipped, [x, y, MID + REACH])[0], \
+            f"no apex on the +Z side of the horn at ({x}, {y})"
+        assert inside(flipped, [x, y, MID - REACH])[0], \
+            f"apex is on the wrong side of the horn at ({x}, {y})"

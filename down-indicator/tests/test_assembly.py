@@ -59,6 +59,36 @@ def test_holes_that_break_out_of_the_end_are_rejected():
     assert "cord holes break out" in err
 
 
+def test_holes_that_merge_through_the_middle_are_rejected():
+    """At 2*holeY <= cordDia the troughs join into a channel that severs the slab."""
+    err = render_failure("down_indicator.scad", holeY=3.0)
+    assert "wall between the cord holes" in err
+
+
+def test_an_inter_hole_wall_under_two_millimetres_is_rejected():
+    # 2*4.4 - 7 = 1.8mm of wall: still two distinct holes, but too thin.
+    err = render_failure("down_indicator.scad", holeY=4.4)
+    assert "wall between the cord holes" in err
+
+
+def test_a_chamfer_that_would_eat_the_horns_is_rejected():
+    """Past hornThk/2 the horn polygon self-intersects and the lugs vanish."""
+    err = render_failure("down_indicator.scad", tipChamfer=2.5)
+    assert "tip chamfer" in err
+
+
+def test_a_body_too_thin_for_the_cord_neck_is_rejected():
+    # 6.0mm body -> a 3.606mm neck, wide enough for the cord to escape.
+    err = render_failure("down_indicator.scad", bodyT=6.0)
+    assert "cord neck" in err
+
+
+def test_a_body_too_thick_for_the_cord_neck_is_rejected():
+    # 6.9mm body -> a 1.179mm neck, too tight to thread the cord through.
+    err = render_failure("down_indicator.scad", bodyT=6.9)
+    assert "cord neck" in err
+
+
 def test_a_thinner_body_still_builds_and_widens_the_neck():
     thin = render("down_indicator.scad", bodyT=6.4)
     wider = 2 * math.sqrt(3.5**2 - (6.4 / 2) ** 2)

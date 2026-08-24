@@ -47,6 +47,12 @@ assert(hornThk >= 4.0,
        str("horn thickness ", hornThk, "mm is too thin; reduce bandWidth"));
 assert(holeY + cordDia / 2 < bodyLen / 2,
        "cord holes break out of the body end");
+assert(2 * holeY - cordDia >= 2.0,
+       str("wall between the cord holes ", 2 * holeY - cordDia,
+           "mm is below the 2.0mm minimum"));
+assert(tipChamfer < hornThk / 2,
+       str("tip chamfer ", tipChamfer, "mm must be under half the ",
+           hornThk, "mm horn thickness or the horns self-intersect"));
 
 echo(cordNeck = cordNeck, hornThk = hornThk, lugToLug = lugToLug);
 

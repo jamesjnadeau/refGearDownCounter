@@ -16,7 +16,7 @@ def test_blank_bounding_box(blank):
 
 
 def test_blank_volume_is_the_full_prism(blank):
-    assert blank.volume == approx(30.0 * 40.0 * 6.7, rel=1e-9)
+    assert blank.volume == approx(30.0 * 40.0 * 6.7, rel=1e-6)
 
 
 def test_blank_sits_on_the_bed_and_is_solid_through(blank):

@@ -54,10 +54,20 @@ def render(scad_relpath: str, **overrides) -> trimesh.Trimesh:
     out_path = BUILD / f"{key}.stl"
     if not out_path.exists():
         proc = _run(scad_relpath, out_path, overrides)
-        if proc.returncode != 0 or not out_path.exists():
+        # OpenSCAD exits 0 on a self-intersecting or non-closed mesh, having
+        # said so only on stderr, so the exit code alone is not enough.
+        output = proc.stdout + proc.stderr
+        complaint = next(
+            (line for line in output.splitlines()
+             if "ERROR:" in line or "WARNING:" in line),
+            None,
+        )
+        if proc.returncode != 0 or not out_path.exists() or complaint:
+            out_path.unlink(missing_ok=True)
             pytest.fail(
-                f"OpenSCAD failed on {scad_relpath} {defines}\n"
-                f"{proc.stdout}\n{proc.stderr}"
+                f"OpenSCAD failed on {scad_relpath} {defines}"
+                + (f"\nfirst complaint: {complaint}" if complaint else "")
+                + f"\n{proc.stdout}\n{proc.stderr}"
             )
     return trimesh.load(out_path, force="mesh")
 

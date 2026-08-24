@@ -29,16 +29,25 @@ overridden without editing the file:
 | `cordDia` | 7.0 | Hole and trough diameter |
 | `holeY` | 10.0 | Hole centres |
 | `bandWidth` | 20.0 | 18 if the 4.9mm horns prove marginal |
+| `bandClear` | 0.2 | Added to `bandWidth` for the lug gap |
 | `barStandoff` | 4.5 | |
 | `tipMargin` | 2.0 | |
 | `barHoleDia` | 1.1 | |
-| `tipChamfer` | 0.5 | |
+| `tipChamfer` | 0.5 | Must stay under half the horn thickness (2.45mm at defaults) |
 | `teardropDown` | true | Apex toward the wrist side, for a face-down print |
 
-Four combinations are rejected outright rather than silently producing an
+Six combinations are rejected outright rather than silently producing an
 unbuildable part: a body at or thicker than the cord diameter, a cord neck
-outside 1.2–3.5mm, horns thinner than 4.0mm, and holes that break out of the
-end.
+outside 1.2–3.5mm, horns thinner than 4.0mm, holes that break out of the
+end, less than 2.0mm of wall between the two cord holes, and a tip chamfer at
+or past half the horn thickness. The last two would otherwise render without
+an error: merged holes sever the slab into two pieces, and an oversized
+chamfer self-intersects the horn polygon and deletes all four lugs.
+
+The tests render with the `openscad` CLI and assert against the resulting
+mesh. The exact-volume assertions were verified against **OpenSCAD 2021.01**;
+a different release may triangulate curved surfaces differently and shift
+those figures within their stated tolerances.
 
 ## Print
 

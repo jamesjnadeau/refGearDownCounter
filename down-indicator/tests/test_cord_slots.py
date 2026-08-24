@@ -10,7 +10,6 @@ from conftest import inside
 BODY_T = 6.7
 CORD_R = 3.5
 MID = BODY_T / 2
-BLANK_VOLUME = 30.0 * 40.0 * 6.7
 
 
 def test_cord_body_is_one_closed_solid(cord):
