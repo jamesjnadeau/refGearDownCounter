@@ -10,13 +10,14 @@ MID = BODY_T / 2
 HOLE_Y = 10.0
 FLOOR = BODY_T - CORD_R  # 3.2mm under each cord trough
 BAR_Y = 24.5
+CHAM = 1.0  # chamfer where the outer walls meet each face
 
 
 def test_the_part_is_one_closed_printable_solid(part):
     assert part.is_watertight
     assert part.is_winding_consistent
     assert part.body_count == 1
-    assert part.volume == approx(7426.378, rel=1e-4)
+    assert part.volume == approx(7255.443, rel=1e-4)
 
 
 def test_overall_dimensions(part):
@@ -76,6 +77,72 @@ def test_an_inter_hole_wall_under_two_millimetres_is_rejected():
     # 2*4.4 - 7 = 1.8mm of wall: still two distinct holes, but too thin.
     err = render_failure("down_indicator.scad", holeY=4.4)
     assert "wall between the cord holes" in err
+
+
+def test_every_outer_wall_is_chamfered_at_both_faces(part):
+    """Near each face the wall is cut back by 1mm; at mid-height it is not.
+
+    Walked around the whole outer boundary -- both side walls, all four horn
+    tips, and both band-gap faces -- because a chamfer cutter that misses one
+    wall looks identical in the bounding box and nearly identical in volume.
+    """
+    near = 0.1   # just inside the chamfer
+    far = 0.8    # just outside it
+    for z in (0.3, BODY_T - 0.3):
+        for sx in (-1, 1):  # side walls, x = +-15
+            assert not inside(part, [sx * (15.0 - near), 0.0, z])[0]
+            assert inside(part, [sx * (15.0 - CHAM - far), 0.0, z])[0]
+        for sx in (-1, 1):  # horn tip faces, y = +-26.5
+            for sy in (-1, 1):
+                assert not inside(part, [sx * 12.5, sy * (26.5 - near), z])[0]
+                assert inside(part, [sx * 12.5, sy * (26.5 - CHAM - far), z])[0]
+        for sy in (-1, 1):  # band gap, body end faces at y = +-20
+            assert not inside(part, [5.0, sy * (20.0 - near), z])[0]
+            assert inside(part, [5.0, sy * (20.0 - CHAM - far), z])[0]
+        for sx in (-1, 1):  # band gap, horn inner faces at x = +-10.1
+            for sy in (-1, 1):
+                assert not inside(part, [sx * (10.1 + near), sy * 23.0, z])[0]
+                assert inside(part, [sx * (10.1 + CHAM + far), sy * 23.0, z])[0]
+
+
+def test_the_chamfer_leaves_the_walls_full_height_at_mid_thickness(part):
+    """The chamfer is a 1mm bevel, not a taper down the whole wall."""
+    for sx in (-1, 1):
+        assert inside(part, [sx * 14.9, 0.0, MID])[0]
+        for sy in (-1, 1):
+            assert inside(part, [sx * 12.5, sy * 26.4, MID])[0]
+
+
+def test_the_chamfer_does_not_narrow_the_band_gap_at_mid_thickness(part):
+    """A 20mm strap still passes: the gap is only bevelled at its two faces."""
+    for sy in (-1, 1):
+        assert not inside(part, [10.0, sy * BAR_Y, MID])[0]
+        assert inside(part, [10.3, sy * 22.0, MID])[0]
+
+
+def test_the_horns_survive_the_chamfer(part):
+    """A half-space cutter aimed at one horn's inner face can swallow another."""
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            assert inside(part, [sx * 12.5, sy * 23.0, MID])[0]
+
+
+def test_a_chamfer_thicker_than_half_the_body_is_rejected():
+    err = render_failure("down_indicator.scad", edgeCham=4.0)
+    assert "under half the" in err and "body thickness" in err
+
+
+def test_a_chamfer_thicker_than_half_a_horn_is_rejected():
+    err = render_failure("down_indicator.scad", edgeCham=3.0)
+    assert "under half the" in err and "horn thickness" in err
+
+
+def test_the_chamfer_can_be_switched_off(part):
+    square = render("down_indicator.scad", edgeCham=0)
+    assert square.is_watertight
+    assert square.body_count == 1
+    assert square.volume > part.volume
+    assert inside(square, [14.9, 0.0, 0.3])[0], "wall should be square at z=0.3"
 
 
 def test_a_chamfer_that_would_eat_the_horns_is_rejected():

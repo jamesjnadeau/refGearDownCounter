@@ -67,6 +67,40 @@ would root the horns into the radius rather than into solid end material —
 the failure the lugs spec diagnosed and fixed by squaring the corners. The
 `cornerR` question does not arise: there is no such parameter.
 
+### Edge chamfers
+
+Every outer wall is bevelled **1.0mm at 45°** where it meets each face — both
+side walls, all four horn tip faces, and both walls of the band gap. The part
+is 6.7mm of hard plastic against a wrist, and the long side walls are the
+edges that press into it.
+
+| Quantity | Value |
+| --- | --- |
+| Chamfer | 1.0mm at 45° |
+| Walls chamfered | side walls, horn tips, both band-gap faces |
+| Volume removed | 170.94mm³ |
+| Full-thickness wall remaining | 4.7mm |
+| Band gap at mid-thickness | 20.2mm, unchanged |
+
+The chamfers are **exact half-spaces, not swept surfaces.** Every outer wall
+here is straight and every outer solid is a straight extrusion from z = 0 to
+z = 6.7, so the material to remove at a wall with outward normal n at distance
+d is simply {p·n − z > d − cham}, mirrored about z = t/2 for the other face.
+No stepped approximation is involved and nothing is rounded.
+
+Two of those half-spaces need bounding. The band-gap walls face **inward**, so
+their half-spaces open away from the horn they belong to and run on through
+the rest of the part — the cutter for the left horn's inner face will swallow
+the right horn whole. Each is therefore clipped to its own quadrant. This is
+not hypothetical: the first implementation omitted the clip and produced a
+part with no lugs at all, which the bounding box caught immediately.
+
+The cord holes, the cord channels and the spring-bar bores are **not**
+chamfered. They are functional surfaces, and the cord and the bar want the
+full section.
+
+`edgeCham = 0` removes the chamfers and returns the square-edged part.
+
 ### Cord holes
 
 Two through-bores, on the Y centreline, symmetric about the origin.
@@ -184,12 +218,16 @@ stage, and point-containment probes proving that each face carries its channel
 on its own side and nothing on the other, that 3.2mm of floor survives beneath
 each trough, that both troughs reach their side edge, that the cord path is
 threaded rather than open, that the holes go through, that the band gap is
-clear, and that the bores run through all four horns with the teardrop apex on
-the −Z side.
+clear, that the bores run through all four horns with the teardrop apex on the
+−Z side, and that every outer wall is bevelled at both faces while staying
+full height at mid-thickness.
 
 The suite is mutation-tested, not merely green: reversing a trough's
 direction, lifting a trough off its face, stopping the troughs short of the
-edge, or dropping the sign that mirrors the teardrop apex each fail it.
+edge, dropping the sign that mirrors the teardrop apex, chamfering only one
+side wall, chamfering only one face, cutting the bevel at 30° instead of 45°,
+or dropping the quadrant clip that keeps a chamfer cutter off the opposite
+horn each fail it.
 
 Software cannot confirm the 4.9mm horns survive a wrist, or that two
 right-angle bends hold a real bungee under a finger's pull. Both need the
@@ -209,10 +247,17 @@ turned into a channel on the far face. With a soft bungee end that may need a
 threading tool or a taped tip. This is the price of the opposed routing, which
 is what makes the part hold the cord without a knot.
 
-**No comfort chamfer.** The wrist-side face is a square-edged 30 x 40mm slab.
-A perimeter chamfer or fillet is deliberately deferred: it interacts with the
-horn roots, and adding it before the print test would complicate the volume
-assertions for a change that may want to be a fillet rather than a chamfer.
+**Whether 1mm of chamfer is enough.** The outer walls are bevelled, which
+takes the bite off the edges, but the wrist side is still a flat plate. If it
+still presses uncomfortably the next step is a larger `edgeCham` — the guards
+allow up to 2.4mm — or a fillet rather than a chamfer, which would need a
+different construction than the half-spaces used here.
+
+**The chamfer thins the trough floor at the side walls.** Where a cord channel
+exits at x = ±15 the bottom chamfer takes 1mm off the 3.2mm floor, leaving
+2.2mm at the extreme edge and tapering back to full within 1mm. That is the
+thinnest the floor gets anywhere and it sits right where the cord bears as it
+leaves the body. Watch it on the print test.
 
 ## Licence
 
