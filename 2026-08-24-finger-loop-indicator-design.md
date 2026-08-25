@@ -32,7 +32,7 @@ device can share a strap with the mechanical counter.
 ## Where the work happens
 
 **In this repository**, unlike the down counter. The model is OpenSCAD source
-under `down-indicator/`, version-controlled, with a `pytest` + `trimesh` suite
+under `down-indicator-string/`, version-controlled, with a `pytest` + `trimesh` suite
 that renders the model and asserts against the resulting mesh. No Onshape
 document is involved, and none of the Onshape constraints recorded in
 [AGENTS.md](AGENTS.md) apply.
