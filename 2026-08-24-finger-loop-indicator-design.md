@@ -81,38 +81,39 @@ Two through-bores, on the Y centreline, symmetric about the origin.
 
 ### Cord slots
 
-From each hole, a trough of the **same 7.0mm diameter** runs outward along Y
-to the body end: one cut into the watch face (axis at z = 6.7), one cut into
-the wrist side (axis at z = 0). The +Y hole's pair runs to the +Y end, the −Y
-hole's to the −Y end.
+From each hole, a trough of the **same 7.0mm diameter** runs out to a side
+edge — but the two troughs of a hole run to **opposite** edges. The watch-face
+trough (axis at z = 6.7) runs to +X; the wrist-side trough (axis at z = 0)
+runs to −X. Both holes share the same handedness, so the two face channels are
+parallel and the two wrist channels are parallel.
 
-Because the body is **thinner than the trough diameter**, the two troughs
-overlap at mid-thickness and the slot is open end to end. The cord is pressed
-in from the side rather than threaded.
-
-The narrowest point is at z = t/2, and its width follows from the geometry:
-
-```
-neck = 2 * sqrt(r² − (t/2)²)
-     = 2 * sqrt(3.5² − 3.35²)
-     = 2.027mm
-```
+That opposition is the whole design. A strand entering the face channel drops
+through the hole and turns into the wrist channel heading the other way, so it
+makes **two right-angle bends inside the body**. The bends are the retention:
+the cord is held by the shape of its own path, not by a knot and not by a
+pinch fit.
 
 | Quantity | Value |
 | --- | --- |
-| Slot width at either face | 7.0mm |
-| Neck width at mid-thickness | 2.027mm |
-| Volume removed, holes and troughs together | 1050.79mm³ |
+| Trough width at its own face | 7.0mm |
+| Trough depth | 3.5mm |
+| Floor left under each trough | 3.2mm |
+| Run, hole centre to side edge | 15.0mm |
+| Volume removed, holes and troughs together | 1440.61mm³ |
 
-**6.7mm is derived, not chosen.** It is the thickness that yields a ~2mm neck
-at a 7mm trough. A 3mm bungee presses past a 2mm neck with a squeeze and does
-not fall back out under its own weight. The relationship is one line of
-arithmetic in the model and is asserted, so changing `bodyT` or `cordDia`
-reports the resulting neck rather than silently producing a part that either
-will not accept the cord or will not hold it.
+**The cord is threaded, not pressed in.** Away from the hole the two channels
+sit on opposite sides of the body and never meet, so there is no open slot
+along either run — the only full-thickness opening is the hole itself. This is
+the deliberate consequence of the opposed routing, and the test suite pins it
+down directly rather than leaving it to be inferred.
 
-At 7.0mm exactly the troughs would meet along a knife edge and the slot would
-have zero width — the model asserts `bodyT < cordDia` to rule that out.
+**6.7mm is a free choice, not a derived one.** An earlier revision of this
+spec ran both of a hole's troughs to the same end, which made them overlap at
+mid-thickness into a pressed-in slot, and 6.7mm was the thickness that gave
+that slot a ~2mm neck. With opposed routing there is no neck, and the binding
+constraint is instead the **floor under each trough**: `bodyT − cordDia/2`,
+which the model asserts stays at or above 2.0mm. At the defaults that floor is
+3.2mm.
 
 ### Lugs
 
@@ -145,14 +146,16 @@ stays at or above 4.0mm, so `bandWidth = 24` is rejected outright.
 79mm down counter could never reach. Orientation is not in question here: the
 40mm axis runs along the forearm and the lugs sit on the 30mm ends.
 
-### Slot and lug interaction
+### Trough and lug interaction
 
-The slot exits the end face at x ∈ [−3.5, +3.5]; the lug gap spans
-x ∈ [−10.1, +10.1]. The slot therefore emerges **inside the band gap**, with
-6.6mm of clearance to each horn. It does not touch the horns or the bores.
+The troughs run in X at y = ±10, spanning y ∈ [6.5, 13.5] and [−13.5, −6.5].
+The horns begin at y = 19.5. The two never meet in Y, so the troughs exit the
+side walls in clear material with 6mm to spare and touch neither the horns nor
+the bores.
 
-It does, however, emerge directly beneath the spring bar and the strap. See
-[Open questions](#open-questions).
+This is the payoff of routing to the sides rather than the ends: the cord
+leaves the body well clear of the strap, so nothing is pinned under the spring
+bar.
 
 ## Print
 
@@ -164,34 +167,47 @@ toward −Z, i.e. upward on the bed.
 One consequence is unavoidable and worth stating plainly: the part is
 symmetric in Z, so of the two troughs, whichever faces the bed prints as an
 unsupported 7mm arch and whichever faces up prints as a clean valley.
-Flipping the part swaps which is which. The arch's apex is the neck, so sag
-there narrows the neck rather than closing the slot — the failure mode is a
-cord that is hard to insert, not a part that is scrap. Measure the neck on the
-first print before deciding whether a self-supporting slot profile is needed.
+Flipping the part swaps which is which — there is no orientation that makes
+both clean.
+
+The arch here is milder than it looks. Because the channels are opposed, the
+bed-side arch has 3.2mm of solid floor above it rather than an open slot, so
+sag shows up as a rougher channel surface, not as a closed passage. The
+failure mode is a cord that drags where it should slide. Check the bed-side
+channel on the first print and hand-ream it if the surface is poor.
 
 ## Verification
 
 The model is checked by rendering it to STL and asserting against the mesh:
 watertight, a single body, exact bounding box, exact volume at each build
-stage, and point-containment probes proving the slot is open along its whole
-run, the neck is the width the arithmetic predicts, the holes go through, the
-band gap is clear, and the bores run through the horns with the teardrop apex
-on the −Z side.
+stage, and point-containment probes proving that each face carries its channel
+on its own side and nothing on the other, that 3.2mm of floor survives beneath
+each trough, that both troughs reach their side edge, that the cord path is
+threaded rather than open, that the holes go through, that the band gap is
+clear, and that the bores run through all four horns with the teardrop apex on
+the −Z side.
 
-Software cannot confirm the 4.9mm horns survive a wrist, or that a 2.027mm
-neck holds a real bungee. Both need the print test.
+The suite is mutation-tested, not merely green: reversing a trough's
+direction, lifting a trough off its face, stopping the troughs short of the
+edge, or dropping the sign that mirrors the teardrop apex each fail it.
+
+Software cannot confirm the 4.9mm horns survive a wrist, or that two
+right-angle bends hold a real bungee under a finger's pull. Both need the
+print test.
 
 ## Open questions
 
-**The cord exits under the strap.** Both slots emerge in the band gap, so the
-cord is pinned beneath the spring bar and the strap. That may be tidy — it
-keeps the cord from flapping — or it may chafe and bind. Confirm on the first
-print. If it binds, the fix is to move the holes off the Y centreline so the
-slots exit a side edge instead, which is a change to `holeY` plus a slot
-direction, not a redesign.
+**Bend retention is untested against a real bungee.** Two right-angle bends
+through 6.7mm of body should hold an elastic cord by friction alone, but that
+is a claim about a real material, not about geometry. Print a coupon — one
+hole with its two channels — and pull a bungee through it before committing to
+a full body. If it slips, the cheapest fixes in order are a smaller `cordDia`
+for a tighter path, then a thicker `bodyT` for longer bends.
 
-**Neck retention is untested against a real bungee.** 2.027mm is an
-arithmetic target, not a measured one. Print a slot coupon before a full body.
+**Threading may be fiddly.** The cord has to be fed through a 7mm hole and
+turned into a channel on the far face. With a soft bungee end that may need a
+threading tool or a taped tip. This is the price of the opposed routing, which
+is what makes the part hold the cord without a knot.
 
 **No comfort chamfer.** The wrist-side face is a square-edged 30 x 40mm slab.
 A perimeter chamfer or fillet is deliberately deferred: it interacts with the

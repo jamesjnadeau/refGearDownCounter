@@ -1,14 +1,14 @@
 """The complete part, and the guards on its parameters."""
 
-import math
-
 from pytest import approx
 
 from conftest import inside, render, render_failure
 
 BODY_T = 6.7
+CORD_R = 3.5
 MID = BODY_T / 2
-NECK = 2 * math.sqrt(3.5**2 - (BODY_T / 2) ** 2)
+HOLE_Y = 10.0
+FLOOR = BODY_T - CORD_R  # 3.2mm under each cord trough
 BAR_Y = 24.5
 
 
@@ -16,7 +16,7 @@ def test_the_part_is_one_closed_printable_solid(part):
     assert part.is_watertight
     assert part.is_winding_consistent
     assert part.body_count == 1
-    assert part.volume == approx(7816.2, rel=1e-4)
+    assert part.volume == approx(7426.378, rel=1e-4)
 
 
 def test_overall_dimensions(part):
@@ -26,17 +26,23 @@ def test_overall_dimensions(part):
 
 
 def test_the_cord_slots_survive_the_assembly(part):
+    """Face channel on +X, wrist channel on -X, both holes, floor intact."""
     for sign in (-1, 1):
-        run = [[0.0, sign * y, MID] for y in (10.0, 13.0, 16.0, 19.0, 20.0)]
-        assert not inside(part, *run).any()
-    assert not inside(part, [NECK / 2 - 0.1, 16.0, MID])[0]
-    assert inside(part, [NECK / 2 + 0.1, 16.0, MID])[0]
+        y = sign * HOLE_Y
+        assert not inside(part, [0.0, y, MID])[0], "hole is blocked"
+        for x in (5.0, 9.0, 13.0):
+            assert not inside(part, [x, y, 6.4])[0], "face channel missing"
+            assert not inside(part, [-x, y, 0.3])[0], "wrist channel missing"
+            assert inside(part, [x, y, FLOOR / 2])[0], "face channel broke through"
 
 
-def test_the_slot_exits_inside_the_band_gap_and_clears_the_horns(part):
-    """Slot spans x +-3.5; the gap spans x +-10.1. Nothing between them is cut."""
-    assert not inside(part, [0.0, 20.5, MID])[0], "slot does not exit the end"
-    assert inside(part, [12.5, 22.0, MID])[0], "the slot has eaten into a horn"
+def test_the_troughs_exit_the_side_walls_and_clear_the_horns(part):
+    """Troughs run in X at y = +-10; the horns start at y = 19.5. No overlap."""
+    for sign in (-1, 1):
+        y = sign * HOLE_Y
+        assert not inside(part, [14.6, y, 6.4])[0], "face trough does not exit"
+        assert not inside(part, [-14.6, y, 0.3])[0], "wrist trough does not exit"
+    assert inside(part, [12.5, 22.0, MID])[0], "a trough has eaten into a horn"
 
 
 def test_the_lugs_survive_the_assembly(part):
@@ -44,9 +50,10 @@ def test_the_lugs_survive_the_assembly(part):
     assert inside(part, [12.5, BAR_Y, MID + 1.5])[0], "horn material is missing"
 
 
-def test_a_body_as_thick_as_the_cord_is_rejected():
-    err = render_failure("down_indicator.scad", bodyT=8.0)
-    assert "bodyT must be less than cordDia" in err
+def test_a_body_too_thin_to_floor_the_trough_is_rejected():
+    # 5.0mm body -> 1.5mm of floor under a 3.5mm-deep trough.
+    err = render_failure("down_indicator.scad", bodyT=5.0)
+    assert "floor under the cord trough" in err
 
 
 def test_a_band_too_wide_for_the_end_is_rejected():
@@ -77,21 +84,17 @@ def test_a_chamfer_that_would_eat_the_horns_is_rejected():
     assert "tip chamfer" in err
 
 
-def test_a_body_too_thin_for_the_cord_neck_is_rejected():
-    # 6.0mm body -> a 3.606mm neck, wide enough for the cord to escape.
-    err = render_failure("down_indicator.scad", bodyT=6.0)
-    assert "cord neck" in err
+def test_a_cord_too_fat_for_the_body_is_rejected():
+    # A 10mm cord in a 6.7mm body would leave 1.7mm of floor.
+    err = render_failure("down_indicator.scad", cordDia=10.0)
+    assert "floor under the cord trough" in err
 
 
-def test_a_body_too_thick_for_the_cord_neck_is_rejected():
-    # 6.9mm body -> a 1.179mm neck, too tight to thread the cord through.
-    err = render_failure("down_indicator.scad", bodyT=6.9)
-    assert "cord neck" in err
-
-
-def test_a_thinner_body_still_builds_and_widens_the_neck():
-    thin = render("down_indicator.scad", bodyT=6.4)
-    wider = 2 * math.sqrt(3.5**2 - (6.4 / 2) ** 2)
-    assert wider > NECK
+def test_a_thinner_body_still_builds_with_a_thinner_floor():
+    thin = render("down_indicator.scad", bodyT=6.0)
     assert thin.is_watertight
-    assert not inside(thin, [wider / 2 - 0.1, 16.0, 6.4 / 2])[0]
+    assert thin.body_count == 1
+    assert thin.bounds[1][2] == approx(6.0, abs=1e-6)
+    # 2.5mm of floor, still above the 2.0mm minimum
+    assert inside(thin, [9.0, HOLE_Y, 1.25])[0]
+    assert not inside(thin, [9.0, HOLE_Y, 5.7])[0]

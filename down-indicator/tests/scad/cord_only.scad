@@ -10,5 +10,5 @@ $fn = 96;
 
 difference() {
     body_blank(bodyLen, bodyWid, bodyT);
-    cord_cutter(bodyLen, bodyT, cordDia, holeY);
+    cord_cutter(bodyWid, bodyT, cordDia, holeY);
 }

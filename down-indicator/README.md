@@ -25,8 +25,8 @@ overridden without editing the file:
 | --- | --- | --- |
 | `bodyLen` | 40.0 | Along the forearm |
 | `bodyWid` | 30.0 | Across the wrist |
-| `bodyT` | 6.7 | Must be less than `cordDia`, or the slots never open |
-| `cordDia` | 7.0 | Hole and trough diameter |
+| `bodyT` | 6.7 | Sets the trough floor: `bodyT - cordDia/2`, min 2.0mm |
+| `cordDia` | 7.0 | Hole and trough diameter; deeper troughs thin the floor |
 | `holeY` | 10.0 | Hole centres |
 | `bandWidth` | 20.0 | 18 if the 4.9mm horns prove marginal |
 | `bandClear` | 0.2 | Added to `bandWidth` for the lug gap |
@@ -36,7 +36,7 @@ overridden without editing the file:
 | `tipChamfer` | 0.5 | Must stay under half the horn thickness (2.45mm at defaults) |
 | `teardropDown` | true | Apex toward the wrist side, for a face-down print |
 
-Six combinations are rejected outright rather than silently producing an
+Five combinations are rejected outright rather than silently producing an
 unbuildable part: a body at or thicker than the cord diameter, a cord neck
 outside 1.2–3.5mm, horns thinner than 4.0mm, holes that break out of the
 end, less than 2.0mm of wall between the two cord holes, and a tip chamfer at

@@ -131,9 +131,11 @@ confirming — see the spec.
 
 A third device, and the first one whose model is version-controlled here
 rather than living in Onshape. A 40 x 30 x 6.7mm body on a 20mm watch strap,
-with two 7mm holes opening through side-loading slots to each end; a bungee
-cord presses into the slots, runs over the back of the hand and loops over a
-finger. The finger is the down selector.
+with two 7mm through-holes. Each hole has a 7mm channel on the watch face
+running out to one side edge and a matching channel on the wrist side running
+out to the other, so a threaded cord makes two right-angle bends inside the
+body and is held by its own path rather than by a knot. The cord runs over the
+back of the hand and loops over a finger; the finger is the down selector.
 
 It reuses the down counter's spring-bar lug geometry — 20mm band, 20.2mm gap,
 teardrop bores — and nothing else. Its footprint is its own.
