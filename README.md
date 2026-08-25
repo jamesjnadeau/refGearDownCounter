@@ -25,6 +25,7 @@ the two cannot be confused again.
 | [2026-08-22-band-lugs-design.md](2026-08-22-band-lugs-design.md) | Design and as-built record for the spring-bar band lugs, the squared end corners, and the removal of the unprintable "4" counter. Built 2026-08-22, not yet printed. |
 | [2026-08-24-finger-loop-indicator-design.md](2026-08-24-finger-loop-indicator-design.md) | Design for the finger-loop down indicator: a wrist body anchoring a bungee cord that loops over a finger. Modelled in OpenSCAD under `down-indicator-string/`, not in Onshape. |
 | [down-indicator-string/](down-indicator-string/) | The OpenSCAD model for the above, with a `pytest` suite that renders it and asserts against the mesh. |
+| [down-indicator-selector/](down-indicator-selector/) | All three parts of the slider down counter, converted out of Onshape into OpenSCAD on 2026-08-25, with the same kind of test suite and Onshape's own exports kept alongside as reference meshes. |
 | [AGENTS.md](AGENTS.md) | Working notes for agents. Chiefly: if you cannot delete something you created in Onshape, hand back an explicit cleanup list rather than leaving orphans unmentioned. |
 | [LICENSE](LICENSE) | Open Community License v1.1, verbatim. See [Licence](#licence). |
 
@@ -33,6 +34,28 @@ the two cannot be confused again.
 A three-part printed slider. A knob rides in a slot in the top plate and
 indexes between four stations; the numbers 1–4 engraved alongside the slot
 read off the current down.
+
+### The move to OpenSCAD
+
+All three parts have been converted to OpenSCAD and live in
+[down-indicator-selector/](down-indicator-selector/), so the counter can be
+built without opening Onshape. They are conversions of the **original**, so
+they carry no lugs. That README records what the conversion does and does not
+carry over — chiefly the typeface, the two non-tangent corner arcs, and the
+floating counter of the 4, which is the one thing deliberately fixed rather
+than reproduced.
+
+Two things it turned up that were not recorded anywhere before:
+
+- **How the three parts stack.** The assembly in Onshape is empty, so this was
+  read off the geometry: the bottom shell seats against the cavity ceiling and
+  stands 1.1mm proud of the skirt, the button's flange lifts 0.4mm in its
+  pocket, and its boss stands 1.9mm clear of the top face. Case thickness
+  8.2mm.
+- **The bottom shell does not fit the cavity.** The cavity's 3° draft makes it
+  widest at the ceiling and narrowest at the mouth the bottom shell enters
+  through, leaving about 0.18mm of interference per side. Whether that is
+  deliberate is not recorded. Confirm against a physical unit.
 
 ### Onshape models
 
