@@ -11,10 +11,10 @@ $(VENV): requirements.txt
 test: $(VENV)
 	$(VENV)/bin/pytest -q
 
-stl: build/down_indicator.stl
+stl: build/down_indicator_string.stl
 	@ls -lh $< | awk '{print "ready: $< (" $$5 ")"}'
 
-build/down_indicator.stl: down_indicator.scad $(wildcard lib/*.scad)
+build/down_indicator_string.stl: down_indicator_string.scad $(wildcard lib/*.scad)
 	@mkdir -p build
 	$(OPENSCAD) -o $@ $<
 

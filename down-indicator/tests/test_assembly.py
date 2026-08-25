@@ -53,29 +53,29 @@ def test_the_lugs_survive_the_assembly(part):
 
 def test_a_body_too_thin_to_floor_the_trough_is_rejected():
     # 5.0mm body -> 1.5mm of floor under a 3.5mm-deep trough.
-    err = render_failure("down_indicator.scad", bodyT=5.0)
+    err = render_failure("down_indicator_string.scad", bodyT=5.0)
     assert "floor under the cord trough" in err
 
 
 def test_a_band_too_wide_for_the_end_is_rejected():
-    err = render_failure("down_indicator.scad", bandWidth=24)
+    err = render_failure("down_indicator_string.scad", bandWidth=24)
     assert "horn thickness" in err
 
 
 def test_holes_that_break_out_of_the_end_are_rejected():
-    err = render_failure("down_indicator.scad", holeY=17)
+    err = render_failure("down_indicator_string.scad", holeY=17)
     assert "cord holes break out" in err
 
 
 def test_holes_that_merge_through_the_middle_are_rejected():
     """At 2*holeY <= cordDia the troughs join into a channel that severs the slab."""
-    err = render_failure("down_indicator.scad", holeY=3.0)
+    err = render_failure("down_indicator_string.scad", holeY=3.0)
     assert "wall between the cord holes" in err
 
 
 def test_an_inter_hole_wall_under_two_millimetres_is_rejected():
     # 2*4.4 - 7 = 1.8mm of wall: still two distinct holes, but too thin.
-    err = render_failure("down_indicator.scad", holeY=4.4)
+    err = render_failure("down_indicator_string.scad", holeY=4.4)
     assert "wall between the cord holes" in err
 
 
@@ -140,17 +140,17 @@ def test_the_horns_survive_the_chamfer(part):
 
 
 def test_a_chamfer_thicker_than_half_the_body_is_rejected():
-    err = render_failure("down_indicator.scad", edgeCham=4.0)
+    err = render_failure("down_indicator_string.scad", edgeCham=4.0)
     assert "under half the" in err and "body thickness" in err
 
 
 def test_a_chamfer_thicker_than_half_a_horn_is_rejected():
-    err = render_failure("down_indicator.scad", edgeCham=3.0)
+    err = render_failure("down_indicator_string.scad", edgeCham=3.0)
     assert "under half the" in err and "horn thickness" in err
 
 
 def test_the_chamfer_can_be_switched_off(part):
-    square = render("down_indicator.scad", edgeCham=0)
+    square = render("down_indicator_string.scad", edgeCham=0)
     assert square.is_watertight
     assert square.body_count == 1
     assert square.volume > part.volume
@@ -159,18 +159,18 @@ def test_the_chamfer_can_be_switched_off(part):
 
 def test_a_chamfer_that_would_eat_the_horns_is_rejected():
     """Past hornThk/2 the horn polygon self-intersects and the lugs vanish."""
-    err = render_failure("down_indicator.scad", tipChamfer=2.5)
+    err = render_failure("down_indicator_string.scad", tipChamfer=2.5)
     assert "tip chamfer" in err
 
 
 def test_a_cord_too_fat_for_the_body_is_rejected():
     # A 10mm cord in a 6.7mm body would leave 1.7mm of floor.
-    err = render_failure("down_indicator.scad", cordDia=10.0)
+    err = render_failure("down_indicator_string.scad", cordDia=10.0)
     assert "floor under the cord trough" in err
 
 
 def test_a_thinner_body_still_builds_with_a_thinner_floor():
-    thin = render("down_indicator.scad", bodyT=6.0)
+    thin = render("down_indicator_string.scad", bodyT=6.0)
     assert thin.is_watertight
     assert thin.body_count == 1
     assert thin.bounds[1][2] == approx(6.0, abs=1e-6)

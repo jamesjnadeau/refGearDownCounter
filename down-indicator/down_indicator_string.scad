@@ -63,9 +63,9 @@ assert(tipChamfer < hornThk / 2,
 
 echo(cordFloor = cordFloor, hornThk = hornThk, lugToLug = lugToLug);
 
-down_indicator();
+down_indicator_string();
 
-module down_indicator() {
+module down_indicator_string() {
     difference() {
         union() {
             body_blank(bodyLen, bodyWid, bodyT);

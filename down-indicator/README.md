@@ -7,7 +7,7 @@ Design and reasoning: [../2026-08-24-finger-loop-indicator-design.md](../2026-08
 
 ## Build
 
-    make stl      # -> build/down_indicator.stl
+    make stl      # -> build/down_indicator_string.stl
     make test     # render the model and assert against the mesh
     make clean
 
@@ -16,10 +16,10 @@ Design and reasoning: [../2026-08-24-finger-loop-indicator-design.md](../2026-08
 
 ## Parameters
 
-Every parameter is declared at the top of `down_indicator.scad` and can be
+Every parameter is declared at the top of `down_indicator_string.scad` and can be
 overridden without editing the file:
 
-    openscad -o build/wide.stl -D bandWidth=18 down_indicator.scad
+    openscad -o build/wide.stl -D bandWidth=18 down_indicator_string.scad
 
 | Parameter | Default | Notes |
 | --- | --- | --- |

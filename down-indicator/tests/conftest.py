@@ -106,4 +106,4 @@ def lugs():
 
 @pytest.fixture(scope="session")
 def part():
-    return render("down_indicator.scad")
+    return render("down_indicator_string.scad")
