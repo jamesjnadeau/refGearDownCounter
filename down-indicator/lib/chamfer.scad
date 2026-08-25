@@ -11,9 +11,9 @@
 // {p.n - z > d - cham}, and the z = t chamfer is its mirror about z = t/2.
 //
 // Convex walls -- the side walls and the horn tips -- take that half-space
-// unbounded, because the part never reaches past them. The band-gap walls
-// face inward, so their half-spaces would run on through the whole body;
-// those are bounded to the gap.
+// unbounded, because the part never reaches past them. The body end faces
+// inside the band gap face inward, so their half-space would run on through
+// the horns; that one is bounded to the gap width.
 
 // Every outer edge of `part`, chamfered by `cham`.
 module outer_edge_chamfers(len, wid, t, gap, prot, cham) {
@@ -38,16 +38,11 @@ module chamfer_cutters(len, wid, t, gap, prot, cham) {
             cube([gap, big, big], center = true);
         }
 
-    // Band gap: the horns' inner faces. Each of these half-spaces opens away
-    // from its own horn and would swallow the opposite one, so each is bounded
-    // to its own quadrant -- past the body end in Y, and its own side in X.
-    for (sx = [-1, 1])
-        for (sy = [-1, 1])
-            intersection() {
-                both_faces(sx * 90, -gap / 2, t, cham, big);
-                translate([sx * big / 2, sy * (len / 2 + big / 2), 0])
-                    cube([big, big, big], center = true);
-            }
+    // The horns' inner faces are deliberately NOT chamfered. They are the
+    // faces the strap bears against, and bevelling them would open the band
+    // gap by `cham` at each face -- the strap would sit loose at the top and
+    // bottom of a gap sized to hold it. They stay square for their full
+    // height.
 }
 
 // The chamfer at both faces for one wall, whose outward normal lies at `ang`

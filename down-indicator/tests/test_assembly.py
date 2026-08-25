@@ -17,7 +17,7 @@ def test_the_part_is_one_closed_printable_solid(part):
     assert part.is_watertight
     assert part.is_winding_consistent
     assert part.body_count == 1
-    assert part.volume == approx(7255.443, rel=1e-4)
+    assert part.volume == approx(7278.693, rel=1e-4)
 
 
 def test_overall_dimensions(part):
@@ -99,10 +99,29 @@ def test_every_outer_wall_is_chamfered_at_both_faces(part):
         for sy in (-1, 1):  # band gap, body end faces at y = +-20
             assert not inside(part, [5.0, sy * (20.0 - near), z])[0]
             assert inside(part, [5.0, sy * (20.0 - CHAM - far), z])[0]
-        for sx in (-1, 1):  # band gap, horn inner faces at x = +-10.1
-            for sy in (-1, 1):
-                assert not inside(part, [sx * (10.1 + near), sy * 23.0, z])[0]
-                assert inside(part, [sx * (10.1 + CHAM + far), sy * 23.0, z])[0]
+
+
+def test_the_horn_interiors_are_left_square(part):
+    """The faces the strap bears against keep their full height.
+
+    Bevelling these would open the band gap by 1mm at each face, so a strap
+    sized to the gap would sit loose top and bottom. All four are checked --
+    the cutters that used to do this were per-horn, so one could be dropped
+    while three stayed.
+    """
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            for z in (0.15, MID, BODY_T - 0.15):
+                assert inside(part, [sx * (10.1 + 0.15), sy * 23.0, z])[0], (
+                    f"horn interior bevelled at z={z}"
+                )
+
+
+def test_the_band_gap_is_the_same_width_at_every_height(part):
+    """20.2mm face to face, not just at mid-thickness."""
+    for z in (0.15, MID, BODY_T - 0.15):
+        assert not inside(part, [10.0, 23.0, z])[0], "gap narrower than 20.2"
+        assert inside(part, [10.3, 23.0, z])[0], "gap wider than 20.2"
 
 
 def test_the_chamfer_leaves_the_walls_full_height_at_mid_thickness(part):
@@ -111,13 +130,6 @@ def test_the_chamfer_leaves_the_walls_full_height_at_mid_thickness(part):
         assert inside(part, [sx * 14.9, 0.0, MID])[0]
         for sy in (-1, 1):
             assert inside(part, [sx * 12.5, sy * 26.4, MID])[0]
-
-
-def test_the_chamfer_does_not_narrow_the_band_gap_at_mid_thickness(part):
-    """A 20mm strap still passes: the gap is only bevelled at its two faces."""
-    for sy in (-1, 1):
-        assert not inside(part, [10.0, sy * BAR_Y, MID])[0]
-        assert inside(part, [10.3, sy * 22.0, MID])[0]
 
 
 def test_the_horns_survive_the_chamfer(part):

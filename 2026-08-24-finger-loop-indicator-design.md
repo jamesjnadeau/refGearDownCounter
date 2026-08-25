@@ -69,18 +69,19 @@ the failure the lugs spec diagnosed and fixed by squaring the corners. The
 
 ### Edge chamfers
 
-Every outer wall is bevelled **1.0mm at 45°** where it meets each face — both
-side walls, all four horn tip faces, and both walls of the band gap. The part
-is 6.7mm of hard plastic against a wrist, and the long side walls are the
-edges that press into it.
+Every outer wall that a wearer can touch is bevelled **1.0mm at 45°** where it
+meets each face: both side walls, all four horn tip faces, and the two body
+end faces at the base of the band gap. The part is 6.7mm of hard plastic
+against a wrist, and the long side walls are the edges that press into it.
 
 | Quantity | Value |
 | --- | --- |
 | Chamfer | 1.0mm at 45° |
-| Walls chamfered | side walls, horn tips, both band-gap faces |
-| Volume removed | 170.94mm³ |
+| Walls chamfered | side walls, horn tips, band-gap base |
+| Walls left square | horn interiors, holes, channels, bores |
+| Volume removed | 147.69mm³ |
 | Full-thickness wall remaining | 4.7mm |
-| Band gap at mid-thickness | 20.2mm, unchanged |
+| Band gap, every height | 20.2mm |
 
 The chamfers are **exact half-spaces, not swept surfaces.** Every outer wall
 here is straight and every outer solid is a straight extrusion from z = 0 to
@@ -88,16 +89,20 @@ z = 6.7, so the material to remove at a wall with outward normal n at distance
 d is simply {p·n − z > d − cham}, mirrored about z = t/2 for the other face.
 No stepped approximation is involved and nothing is rounded.
 
-Two of those half-spaces need bounding. The band-gap walls face **inward**, so
-their half-spaces open away from the horn they belong to and run on through
-the rest of the part — the cutter for the left horn's inner face will swallow
-the right horn whole. Each is therefore clipped to its own quadrant. This is
-not hypothetical: the first implementation omitted the clip and produced a
-part with no lugs at all, which the bounding box caught immediately.
+**The horns' inner faces are deliberately left square.** They are what the
+strap bears against, and the gap is sized to the strap — 20.2mm for a 20mm
+band. Bevelling them would open the gap to 22.2mm at each face while leaving
+20.2mm in the middle, so the strap would sit loose top and bottom and rock in
+its own slot. They keep their full 6.7mm height.
+
+The body end faces *at the base* of the gap are chamfered, because nothing
+bears on them; they only need to not be sharp. That half-space faces inward
+and would run on through the horns, so it is the one cutter here that is
+bounded — clipped to the gap width.
 
 The cord holes, the cord channels and the spring-bar bores are **not**
-chamfered. They are functional surfaces, and the cord and the bar want the
-full section.
+chamfered either. They are functional surfaces, and the cord and the bar want
+the full section.
 
 `edgeCham = 0` removes the chamfers and returns the square-edged part.
 
@@ -226,8 +231,8 @@ The suite is mutation-tested, not merely green: reversing a trough's
 direction, lifting a trough off its face, stopping the troughs short of the
 edge, dropping the sign that mirrors the teardrop apex, chamfering only one
 side wall, chamfering only one face, cutting the bevel at 30° instead of 45°,
-or dropping the quadrant clip that keeps a chamfer cutter off the opposite
-horn each fail it.
+chamfering the band-gap base at one end only, or bevelling a horn interior —
+even just one of the four — each fail it.
 
 Software cannot confirm the 4.9mm horns survive a wrist, or that two
 right-angle bends hold a real bungee under a finger's pull. Both need the
