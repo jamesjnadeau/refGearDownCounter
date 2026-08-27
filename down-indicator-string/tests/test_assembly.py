@@ -64,7 +64,7 @@ def test_a_band_too_wide_for_the_end_is_rejected():
 
 def test_holes_that_break_out_of_the_end_are_rejected():
     err = render_failure("down_indicator_string.scad", holeY=17)
-    assert "cord holes break out" in err
+    assert "cord holes or troughs break out" in err
 
 
 def test_holes_that_merge_through_the_middle_are_rejected():
