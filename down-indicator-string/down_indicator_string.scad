@@ -20,9 +20,9 @@ edgeCham =  1.0;  // 45-degree chamfer where the outer walls meet each face
 
 /* [Cord] */
 cordDia      =  7.0;  // through-hole diameter
-holeY        = 10.0;  // hole centres at (0, +holeY) and (0, -holeY)
-troughDia    =  7.0;  // surface trough diameter; free of cordDia
-troughOffset =  0.0;  // trough axis off its face: + sinks it into the body for
+holeY        = 6.0;  // hole centres at (0, +holeY) and (0, -holeY)
+troughDia    =  2.5;  // surface trough diameter; free of cordDia
+troughOffset =  1;  // trough axis off its face: + sinks it into the body for
                       // a deeper-than-half-round groove, - lifts it out for a
                       // shallower one, 0 puts the axis on the face
 
@@ -52,8 +52,8 @@ assert(cordFloor >= 2.0,
            "mm is below the 2.0mm minimum; thicken bodyT, narrow troughDia, ",
            "or reduce troughOffset"));
 assert(troughDepth > 0 && troughDepth < troughDia,
-       str("troughOffset ", troughOffset, "mm must be within +/-", troughDia / 2,
-           "mm (half troughDia) or the trough stops being an open groove"));
+       str("troughOffset ", troughOffset, "mm must be within +/-", troughDia,
+           "mm ( troughDia) or the trough stops being an open groove"));
 assert(hornThk >= 4.0,
        str("horn thickness ", hornThk, "mm is too thin; reduce bandWidth"));
 assert(holeY + cordSpan / 2 < bodyLen / 2,
