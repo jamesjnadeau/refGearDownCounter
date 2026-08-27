@@ -56,16 +56,27 @@ module logo_plate(width) {
     }
 }
 
-// Both face recesses, `depth` deep, the mark centred on y.
+// The mark turned a quarter-turn clockwise and set down at (x, y), so it
+// reads along the forearm instead of across the wrist.
+module logo_turned(width, x, y) {
+    translate([x, y]) rotate(-90) logo_plate(width);
+}
+
+// Both face recesses, `depth` deep.
 //
 // The wrist-side copy is mirrored across X so that it reads the right way
 // round when that face is looked at, rather than showing through reversed.
-module logo_cutter(t, width, depth, y) {
+// That mirror does a second job once the mark is turned and set off centre:
+// the watch-face troughs run out to +X and the wrist ones to -X, so the one
+// offset that clears the mark of the troughs on one face is exactly the
+// offset its reflection needs on the other.
+module logo_cutter(t, width, depth, x, y) {
     over = 1;   // run each cut past its face so the difference closes cleanly
 
-    translate([0, y, t - depth])
-        linear_extrude(height = depth + over) logo_plate(width);
+    translate([0, 0, t - depth])
+        linear_extrude(height = depth + over) logo_turned(width, x, y);
 
-    translate([0, y, -over])
-        linear_extrude(height = depth + over) mirror([1, 0, 0]) logo_plate(width);
+    translate([0, 0, -over])
+        linear_extrude(height = depth + over)
+            mirror([1, 0, 0]) logo_turned(width, x, y);
 }

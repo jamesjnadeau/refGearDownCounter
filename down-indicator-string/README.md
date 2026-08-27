@@ -37,9 +37,10 @@ overridden without editing the file:
 | `tipChamfer` | 0.5 | Must stay under half the horn thickness (2.45mm at defaults) |
 | `teardropDown` | true | Apex toward the wrist side, for a face-down print |
 | `logoEnable` | true | Cuts the RefGear wordmark into both faces |
-| `logoWidth` | 26.0 | Across the wrist; the mark stands a shade over 5:1 |
+| `logoWidth` | 26.0 | Along the forearm; the mark stands a shade over 5:1 |
 | `logoDepth` | 0.5 | Recessed into each face |
-| `logoY` | -14.25 | Centre; the sign picks which end of the clear band |
+| `logoX` | -8.75 | Centre across the wrist; must be negative (see below) |
+| `logoY` | 0.0 | Centre along the forearm |
 
 Seven combinations are rejected outright rather than silently producing an
 unbuildable part: a body at or thicker than the cord diameter, a cord neck
@@ -49,10 +50,18 @@ or past half the horn thickness. The last two would otherwise render without
 an error: merged holes sever the slab into two pieces, and an oversized
 chamfer self-intersects the horn polygon and deletes all four lugs.
 
-Four more guard the logo: a mark wider than the face carries between its
-chamfers, one that reaches the cord holes and troughs, one that runs off the
-body end, and a pair of recesses that would leave under 2.0mm of web between
-them. `logoY` is measured from the centre line, so either end takes the mark.
+Five more guard the logo: a mark on the wrong side of the centre line, one
+that reaches the cord holes, one past the side chamfer, one that runs off the
+body end, and a pair of recesses leaving under 2.0mm of web between them.
+
+The mark reads along the forearm, so it runs *alongside* the cord holes rather
+than past them and cannot be centred across the wrist. Which side is not a
+free choice: the watch-face troughs run out to +X and the wrist-side ones to
+-X, so the mark belongs on -X, and mirroring the wrist copy -- which it needs
+anyway to read the right way round on that face -- lands it on +X, clear of
+its own troughs. One offset serves both faces, and `logoX` is asserted
+negative because the positive mirror image of that arrangement lays each mark
+straight across its own trough run.
 
 ## Fonts
 

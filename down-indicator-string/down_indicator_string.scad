@@ -38,10 +38,12 @@ teardropDown = true;   // apex toward the wrist side, for a face-down print
 
 /* [Logo] */
 logoEnable = true;
-logoWidth  = 26.0;   // across the wrist; the mark stands a shade over 5:1
+logoWidth  = 26.0;   // along the forearm; the mark stands a shade over 5:1
 logoDepth  =  0.5;   // recessed into each face
-logoY      = -14.25; // centre; the clear band past the cord holes, at the
-                     // wrist end -- either end works, sign picks which
+logoX      = -8.75;  // centre across the wrist. Must be negative: the mark
+                     // has to sit opposite the watch-face trough run, and the
+                     // mirror then lands the wrist copy clear of its own
+logoY      =   0.0;  // centre along the forearm
 
 /* [Quality] */
 $fn = 96;
@@ -54,7 +56,7 @@ lugToLug    = bodyLen + 2 * hornProt;
 cordSpan    = max(cordDia, troughDia);   // widest thing cut around a hole centre
 troughDepth = troughDia / 2 + troughOffset;
 cordFloor   = bodyT - troughDepth;
-logoH       = logo_height(logoWidth);   // the mark's height, rule included
+logoH       = logo_height(logoWidth);   // across the wrist, rule included
 
 assert(cordFloor >= 2.0,
        str("floor under the cord trough ", cordFloor,
@@ -80,16 +82,19 @@ assert(tipChamfer < hornThk / 2,
        str("tip chamfer ", tipChamfer, "mm must be under half the ",
            hornThk, "mm horn thickness or the horns self-intersect"));
 
-assert(!logoEnable || logoWidth / 2 <= bodyWid / 2 - edgeCham,
-       str("logo width ", logoWidth, "mm runs past the chamfer line; the face ",
-           "carries ", bodyWid - 2 * edgeCham, "mm between chamfers"));
-assert(!logoEnable || abs(logoY) - logoH / 2 >= holeY + cordSpan / 2,
-       str("logo reaches the cord hole and trough zone; its near edge at ",
-           abs(logoY) - logoH / 2, "mm is inside the ", holeY + cordSpan / 2,
-           "mm those occupy"));
-assert(!logoEnable || abs(logoY) + logoH / 2 <= bodyLen / 2 - edgeCham,
+assert(!logoEnable || logoX < 0,
+       str("logoX ", logoX, "mm must be negative: the watch-face troughs run ",
+           "out to +X, so a mark on that side is laid across them"));
+assert(!logoEnable || abs(logoX) - logoH / 2 >= cordSpan / 2,
+       str("logo reaches the cord holes; its inner edge at ",
+           abs(logoX) - logoH / 2, "mm is inside the ", cordSpan / 2,
+           "mm they occupy"));
+assert(!logoEnable || abs(logoX) + logoH / 2 <= bodyWid / 2 - edgeCham,
+       str("logo runs past the side chamfer line; its outer edge at ",
+           abs(logoX) + logoH / 2, "mm is past ", bodyWid / 2 - edgeCham, "mm"));
+assert(!logoEnable || abs(logoY) + logoWidth / 2 <= bodyLen / 2 - edgeCham,
        str("logo runs off the body end; its far edge at ",
-           abs(logoY) + logoH / 2, "mm is past the chamfer line at ",
+           abs(logoY) + logoWidth / 2, "mm is past the chamfer line at ",
            bodyLen / 2 - edgeCham, "mm"));
 assert(!logoEnable || bodyT - 2 * logoDepth >= 2.0,
        str("logo recesses leave ", bodyT - 2 * logoDepth,
@@ -111,6 +116,6 @@ module down_indicator_string() {
                   barStandoff, barHoleDia, teardropDown);
         outer_edge_chamfers(bodyLen, bodyWid, bodyT, lugGap, hornProt, edgeCham);
         if (logoEnable)
-            logo_cutter(bodyT, logoWidth, logoDepth, logoY);
+            logo_cutter(bodyT, logoWidth, logoDepth, logoX, logoY);
     }
 }

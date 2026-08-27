@@ -7,10 +7,11 @@ bodyT   =  6.7;
 
 logoWidth = 26.0;
 logoDepth =  0.5;
-logoY     = -14.25;
+logoX     = -8.75;
+logoY     =   0.0;
 $fn = 96;
 
 difference() {
     body_blank(bodyLen, bodyWid, bodyT);
-    logo_cutter(bodyT, logoWidth, logoDepth, logoY);
+    logo_cutter(bodyT, logoWidth, logoDepth, logoX, logoY);
 }
