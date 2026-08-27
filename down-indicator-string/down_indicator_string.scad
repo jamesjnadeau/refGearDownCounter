@@ -19,8 +19,12 @@ bodyT   =  6.7;   // free choice; the trough floor assertion below is the constr
 edgeCham =  1.0;  // 45-degree chamfer where the outer walls meet each face
 
 /* [Cord] */
-cordDia =  7.0;   // hole diameter, and trough diameter
-holeY   = 10.0;   // hole centres at (0, +holeY) and (0, -holeY)
+cordDia      =  7.0;  // through-hole diameter
+holeY        = 10.0;  // hole centres at (0, +holeY) and (0, -holeY)
+troughDia    =  7.0;  // surface trough diameter; free of cordDia
+troughOffset =  0.0;  // trough axis off its face: + sinks it into the body for
+                      // a deeper-than-half-round groove, - lifts it out for a
+                      // shallower one, 0 puts the axis on the face
 
 /* [Lugs] */
 bandWidth    = 20.0;
@@ -35,21 +39,27 @@ teardropDown = true;   // apex toward the wrist side, for a face-down print
 $fn = 96;
 
 /* [Hidden] */
-lugGap   = bandWidth + bandClear;
-hornThk  = (bodyWid - lugGap) / 2;
-hornProt = barStandoff + tipMargin;
-lugToLug = bodyLen + 2 * hornProt;
-cordFloor = bodyT - cordDia / 2;
+lugGap      = bandWidth + bandClear;
+hornThk     = (bodyWid - lugGap) / 2;
+hornProt    = barStandoff + tipMargin;
+lugToLug    = bodyLen + 2 * hornProt;
+cordSpan    = max(cordDia, troughDia);   // widest thing cut around a hole centre
+troughDepth = troughDia / 2 + troughOffset;
+cordFloor   = bodyT - troughDepth;
 
 assert(cordFloor >= 2.0,
        str("floor under the cord trough ", cordFloor,
-           "mm is below the 2.0mm minimum; thicken bodyT or narrow cordDia"));
+           "mm is below the 2.0mm minimum; thicken bodyT, narrow troughDia, ",
+           "or reduce troughOffset"));
+assert(troughDepth > 0 && troughDepth < troughDia,
+       str("troughOffset ", troughOffset, "mm must be within +/-", troughDia / 2,
+           "mm (half troughDia) or the trough stops being an open groove"));
 assert(hornThk >= 4.0,
        str("horn thickness ", hornThk, "mm is too thin; reduce bandWidth"));
-assert(holeY + cordDia / 2 < bodyLen / 2,
-       "cord holes break out of the body end");
-assert(2 * holeY - cordDia >= 2.0,
-       str("wall between the cord holes ", 2 * holeY - cordDia,
+assert(holeY + cordSpan / 2 < bodyLen / 2,
+       "cord holes or troughs break out of the body end");
+assert(2 * holeY - cordSpan >= 2.0,
+       str("wall between the cord holes/troughs ", 2 * holeY - cordSpan,
            "mm is below the 2.0mm minimum"));
 assert(edgeCham < bodyT / 2,
        str("edge chamfer ", edgeCham, "mm must be under half the ", bodyT,
@@ -61,7 +71,8 @@ assert(tipChamfer < hornThk / 2,
        str("tip chamfer ", tipChamfer, "mm must be under half the ",
            hornThk, "mm horn thickness or the horns self-intersect"));
 
-echo(cordFloor = cordFloor, hornThk = hornThk, lugToLug = lugToLug);
+echo(cordFloor = cordFloor, troughDepth = troughDepth,
+     hornThk = hornThk, lugToLug = lugToLug);
 
 down_indicator_string();
 
@@ -71,7 +82,7 @@ module down_indicator_string() {
             body_blank(bodyLen, bodyWid, bodyT);
             lug_horns(bodyLen, bodyWid, bodyT, lugGap, hornProt, tipChamfer);
         }
-        cord_cutter(bodyWid, bodyT, cordDia, holeY);
+        cord_cutter(bodyWid, bodyT, cordDia, holeY, troughDia, troughOffset);
         bar_bores(bodyLen, bodyWid, bodyT, lugGap,
                   barStandoff, barHoleDia, teardropDown);
         outer_edge_chamfers(bodyLen, bodyWid, bodyT, lugGap, hornProt, edgeCham);
