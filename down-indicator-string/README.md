@@ -36,6 +36,11 @@ overridden without editing the file:
 | `barHoleDia` | 1.1 | |
 | `tipChamfer` | 0.5 | Must stay under half the horn thickness (2.45mm at defaults) |
 | `teardropDown` | true | Apex toward the wrist side, for a face-down print |
+| `logoEnable` | true | Cuts the RefGear wordmark into both faces |
+| `logoWidth` | 26.0 | Along the forearm; the mark stands a shade over 5:1 |
+| `logoDepth` | 0.5 | Recessed into each face |
+| `logoX` | -8.75 | Centre across the wrist; must be negative (see below) |
+| `logoY` | 0.0 | Centre along the forearm |
 
 Seven combinations are rejected outright rather than silently producing an
 unbuildable part: a body at or thicker than the cord diameter, a cord neck
@@ -44,6 +49,40 @@ end, less than 2.0mm of wall between the two cord holes, and a tip chamfer at
 or past half the horn thickness. The last two would otherwise render without
 an error: merged holes sever the slab into two pieces, and an oversized
 chamfer self-intersects the horn polygon and deletes all four lugs.
+
+Five more guard the logo: a mark on the wrong side of the centre line, one
+that reaches the cord holes, one past the side chamfer, one that runs off the
+body end, and a pair of recesses leaving under 2.0mm of web between them.
+
+The mark reads along the forearm, so it runs *alongside* the cord holes rather
+than past them and cannot be centred across the wrist. Which side is not a
+free choice: the watch-face troughs run out to +X and the wrist-side ones to
+-X, so the mark belongs on -X, and mirroring the wrist copy -- which it needs
+anyway to read the right way round on that face -- lands it on +X, clear of
+its own troughs. One offset serves both faces, and `logoX` is asserted
+negative because the positive mirror image of that arrangement lays each mark
+straight across its own trough run.
+
+## Fonts
+
+The wordmark is built from `text()` against the two static Archivo faces
+vendored in `fonts/`, under the SIL Open Font License (`fonts/OFL.txt`).
+Neither the checkout nor the build needs Archivo installed system-wide, but
+`FONTCONFIG_FILE` must point at `fonts/fonts.conf` -- the Makefile and the
+test suite both set it, so `make stl`, `make test` and a bare `pytest` all
+work unassisted. Invoking `openscad` by hand needs it set:
+
+    FONTCONFIG_FILE=fonts/fonts.conf openscad -o build/x.stl down_indicator_string.scad
+
+Three things make that indirection load-bearing rather than tidy. OpenSCAD
+resolves faces only through fontconfig and ignores its own library font
+directory; a face it cannot resolve is quietly substituted rather than
+refused, so a missing font is a silent visual defect and not an error; and its
+SVG reader drops `<text>` elements outright, so `refgear-logo.svg` cannot be
+imported and imports as the bare underline alone. A *variable* Archivo is no
+help either -- OpenSCAD honours no weight axis, rendering Black and Regular
+identically and flattening the 900/400 contrast the mark is built on. Hence
+two static files.
 
 The tests render with the `openscad` CLI and assert against the resulting
 mesh. The exact-volume assertions were verified against **OpenSCAD 2021.01**;

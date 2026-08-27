@@ -18,10 +18,20 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "build" / "test"
 OPENSCAD = os.environ.get("OPENSCAD", "openscad")
 
+# text() resolves faces only through fontconfig -- OpenSCAD ignores its own
+# library font directory -- and an unresolved name degrades silently into a
+# substitute face rather than failing, so a wrong font would sail through the
+# suite looking correct. Point every render at the repo's own config.
+os.environ.setdefault("FONTCONFIG_FILE", str(ROOT / "fonts" / "fonts.conf"))
+
 
 def _sources_key() -> str:
     digest = hashlib.sha1()
     for path in sorted(ROOT.rglob("*.scad")):
+        digest.update(path.read_bytes())
+    # The faces are inputs to the render as surely as the models are; swapping
+    # one changes the geometry, so it has to invalidate the cache too.
+    for path in sorted((ROOT / "fonts").glob("*.ttf")):
         digest.update(path.read_bytes())
     return digest.hexdigest()[:16]
 
@@ -107,3 +117,8 @@ def lugs():
 @pytest.fixture(scope="session")
 def part():
     return render("down_indicator_string.scad")
+
+
+@pytest.fixture(scope="session")
+def logo():
+    return render("tests/scad/logo_only.scad")
