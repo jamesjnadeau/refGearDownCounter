@@ -36,6 +36,10 @@ overridden without editing the file:
 | `barHoleDia` | 1.1 | |
 | `tipChamfer` | 0.5 | Must stay under half the horn thickness (2.45mm at defaults) |
 | `teardropDown` | true | Apex toward the wrist side, for a face-down print |
+| `logoEnable` | true | Cuts the RefGear wordmark into both faces |
+| `logoWidth` | 26.0 | Across the wrist; the mark stands a shade over 5:1 |
+| `logoDepth` | 0.5 | Recessed into each face |
+| `logoY` | -14.25 | Centre; the sign picks which end of the clear band |
 
 Seven combinations are rejected outright rather than silently producing an
 unbuildable part: a body at or thicker than the cord diameter, a cord neck
@@ -44,6 +48,32 @@ end, less than 2.0mm of wall between the two cord holes, and a tip chamfer at
 or past half the horn thickness. The last two would otherwise render without
 an error: merged holes sever the slab into two pieces, and an oversized
 chamfer self-intersects the horn polygon and deletes all four lugs.
+
+Four more guard the logo: a mark wider than the face carries between its
+chamfers, one that reaches the cord holes and troughs, one that runs off the
+body end, and a pair of recesses that would leave under 2.0mm of web between
+them. `logoY` is measured from the centre line, so either end takes the mark.
+
+## Fonts
+
+The wordmark is built from `text()` against the two static Archivo faces
+vendored in `fonts/`, under the SIL Open Font License (`fonts/OFL.txt`).
+Neither the checkout nor the build needs Archivo installed system-wide, but
+`FONTCONFIG_FILE` must point at `fonts/fonts.conf` -- the Makefile and the
+test suite both set it, so `make stl`, `make test` and a bare `pytest` all
+work unassisted. Invoking `openscad` by hand needs it set:
+
+    FONTCONFIG_FILE=fonts/fonts.conf openscad -o build/x.stl down_indicator_string.scad
+
+Three things make that indirection load-bearing rather than tidy. OpenSCAD
+resolves faces only through fontconfig and ignores its own library font
+directory; a face it cannot resolve is quietly substituted rather than
+refused, so a missing font is a silent visual defect and not an error; and its
+SVG reader drops `<text>` elements outright, so `refgear-logo.svg` cannot be
+imported and imports as the bare underline alone. A *variable* Archivo is no
+help either -- OpenSCAD honours no weight axis, rendering Black and Regular
+identically and flattening the 900/400 contrast the mark is built on. Hence
+two static files.
 
 The tests render with the `openscad` CLI and assert against the resulting
 mesh. The exact-volume assertions were verified against **OpenSCAD 2021.01**;
