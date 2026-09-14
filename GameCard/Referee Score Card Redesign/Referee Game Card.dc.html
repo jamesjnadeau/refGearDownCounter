@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-9ebe2a2c-8d74-40ca-927a-ac714ddebfca/styles.css">
+<script src="_ds/modernist-9ebe2a2c-8d74-40ca-927a-ac714ddebfca/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+a{color:#000}
+a:hover{color:#444}
+</style>
+</helmet>
+<doc-page size="letter">
+  <section class="page" style="display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Archivo,sans-serif;background:#fff">
+    <div style="display:grid;grid-template-columns:repeat(2,3.125in);grid-template-rows:repeat(2,4.8125in);gap:0.28in">
+      <dc-import name="Game Card Side" team="HOME" opp-label="VISITOR" hint-size="3.125in,4.8125in"></dc-import>
+      <dc-import name="Game Card Side" team="HOME" opp-label="VISITOR" hint-size="3.125in,4.8125in"></dc-import>
+      <dc-import name="Game Card Side" team="HOME" opp-label="VISITOR" hint-size="3.125in,4.8125in"></dc-import>
+      <dc-import name="Game Card Side" team="HOME" opp-label="VISITOR" hint-size="3.125in,4.8125in"></dc-import>
+    </div>
+    <div style="font-size:7px;font-weight:600;letter-spacing:0.18em;color:#000;margin-top:0.16in">PAGE 1 — SIDE 1 (HOME) · PRINT DUPLEX, FLIP ON LONG EDGE · CUT ON BORDERS</div>
+  </section>
+  <section class="page" style="display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Archivo,sans-serif;background:#fff">
+    <div style="display:grid;grid-template-columns:repeat(2,3.125in);grid-template-rows:repeat(2,4.8125in);gap:0.28in">
+      <dc-import name="Game Card Side" team="VISITOR" opp-label="HOME" show-toss="{{ false }}" hint-size="3.125in,4.8125in"></dc-import>
+      <dc-import name="Game Card Side" team="VISITOR" opp-label="HOME" show-toss="{{ false }}" hint-size="3.125in,4.8125in"></dc-import>
+      <dc-import name="Game Card Side" team="VISITOR" opp-label="HOME" show-toss="{{ false }}" hint-size="3.125in,4.8125in"></dc-import>
+      <dc-import name="Game Card Side" team="VISITOR" opp-label="HOME" show-toss="{{ false }}" hint-size="3.125in,4.8125in"></dc-import>
+    </div>
+    <div style="font-size:7px;font-weight:600;letter-spacing:0.18em;color:#000;margin-top:0.16in">PAGE 2 — SIDE 2 (VISITOR)</div>
+  </section>
+</doc-page>
+
+</x-dc>
+</body>
+</html>
