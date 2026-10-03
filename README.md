@@ -54,8 +54,8 @@ Two things it turned up that were not recorded anywhere before:
   8.2mm.
 - **The bottom shell does not fit the cavity.** The cavity's 3° draft makes it
   widest at the ceiling and narrowest at the mouth the bottom shell enters
-  through, leaving about 0.18mm of interference per side. Whether that is
-  deliberate is not recorded. Confirm against a physical unit.
+  through, leaving about 0.18mm of interference per side. The owner confirmed
+  on 2026-10-03 that the two shells are meant to press together.
 
 ### Onshape models
 
@@ -106,11 +106,11 @@ through the 8.4mm opening, while its boss protrudes for a thumb. Sliding it
 along the slot moves it between the four stations set by the holes in the
 bottom plate, at 15mm spacing.
 
-The exact detent interface — whether a nub on the flange drops into those
-holes, or a separate pin passes through the button's bore — is not
-determinable from the models alone, since the assembly is empty and no
-fastener is modelled. Confirm against a physical unit before changing
-anything in that area.
+The detent is a **magnetic pin**, as the owner confirmed on 2026-10-03. The
+holes are its stations: the pin slides between the indicator positions and is
+held locked at each one until the referee moves it. The pin and its magnets
+are not modelled — the assembly is empty and no fastener is drawn — so their
+sizes are not recorded here.
 
 ### Current state
 
@@ -162,6 +162,10 @@ back of the hand and loops over a finger; the finger is the down selector.
 
 It reuses the down counter's spring-bar lug geometry — 20mm band, 20.2mm gap,
 teardrop bores — and nothing else. Its footprint is its own.
+
+The cord is 1/8" bungee cord. The owner's strap is a 24mm-wide Velcro strap,
+though any suitable strap that fits would do; the lugs as modelled take a 20mm
+band, and that difference is not yet reconciled.
 
 See [the design](2026-08-24-finger-loop-indicator-design.md) and
 [down-indicator-string/README.md](down-indicator-string/README.md).
