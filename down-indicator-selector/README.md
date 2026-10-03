@@ -140,10 +140,10 @@ shell is 30.000 × 75.000. That is **0.18mm of interference per side**, and the
 bottom shell's only chamfer is on the face that goes in last, so nothing leads
 it in.
 
-Whether that is a press fit on purpose or leftover moulding draft is not
-recorded anywhere, and the empty assembly says nothing either way. Confirm
-against a physical unit. If it wants fixing, `draftAngle` is the parameter,
-and `tests/test_fit.py` pins the number so the change has to be deliberate.
+It is a press fit on purpose: the owner confirmed on 2026-10-03 that the two
+shells are meant to press together. `draftAngle` is the parameter that sets
+it, and `tests/test_fit.py` pins the number so any change has to be
+deliberate.
 
 ## How the three fit
 
@@ -166,10 +166,11 @@ of clearance in the pocket and 0.40mm in the opening, and its 12mm flange
 cannot pass back out through the 8.4mm opening.
 
 The detent itself is **not modelled, here or in Onshape**. The button's bore
-and the bottom shell's holes are both 6.03mm, so something is meant to run
-through the one into the other — a pin, a screw — but no fastener is drawn
-anywhere. Confirm against a physical unit before changing anything in that
-area.
+and the bottom shell's holes are both 6.03mm, and what runs through the one
+into the other is a **magnetic pin**, as the owner confirmed on 2026-10-03.
+It slides between the indicator positions and is held locked at each station
+until the referee moves it. No fastener is drawn anywhere, so the pin and its
+magnets — sizes, and where the magnets sit — are not recorded here.
 
 ## Layout
 

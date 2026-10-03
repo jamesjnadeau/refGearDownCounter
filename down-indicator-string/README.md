@@ -89,6 +89,20 @@ mesh. The exact-volume assertions were verified against **OpenSCAD 2021.01**;
 a different release may triangulate curved surfaces differently and shift
 those figures within their stated tolerances.
 
+## Hardware
+
+As the owner uses it, confirmed 2026-10-03:
+
+| | |
+| --- | --- |
+| Cord | 1/8" (3.2mm) bungee cord |
+| Strap | 24mm-wide Velcro strap, though any suitable strap that fits would do |
+
+The lugs as modelled take a 20mm band (`bandWidth` 20.0, a 20.2mm gap), which
+is narrower than that strap. The model has not been changed to match:
+`bandWidth = 24` leaves 2.9mm horns on the 30mm body, and the 4.0mm horn guard
+rejects it. How the 24mm strap is fitted is not recorded.
+
 ## Print
 
 Face down — the `z = bodyT` face on the bed. That puts strap tension along the
