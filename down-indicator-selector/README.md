@@ -169,8 +169,19 @@ The detent itself is **not modelled, here or in Onshape**. The button's bore
 and the bottom shell's holes are both 6.03mm, and what runs through the one
 into the other is a **magnetic pin**, as the owner confirmed on 2026-10-03.
 It slides between the indicator positions and is held locked at each station
-until the referee moves it. No fastener is drawn anywhere, so the pin and its
-magnets — sizes, and where the magnets sit — are not recorded here.
+until the referee moves it. The magnets are common 6mm x 2mm ones, as the
+owner said on 2026-10-03. No fastener is drawn anywhere, so the pin's size,
+how many magnets there are, and where they sit are not recorded here.
+
+## Field use
+
+The owner has used this counter in at least 10 games in the 2026 season, as
+reported on 2026-10-03, and described the unit as "the one with 4 slots in a
+2 by 2 configuration", worn on a strap through those slots.
+
+The model here has no strap slots or lugs, so the game-used unit differs from
+it in at least that respect. What the four slots are and where they sit is
+not recorded.
 
 ## Layout
 

@@ -108,9 +108,22 @@ bottom plate, at 15mm spacing.
 
 The detent is a **magnetic pin**, as the owner confirmed on 2026-10-03. The
 holes are its stations: the pin slides between the indicator positions and is
-held locked at each one until the referee moves it. The pin and its magnets
-are not modelled — the assembly is empty and no fastener is drawn — so their
-sizes are not recorded here.
+held locked at each one until the referee moves it. The magnets are common
+6mm x 2mm ones, as the owner said on 2026-10-03. The pin and the magnets are
+not modelled — the assembly is empty and no fastener is drawn — so the pin's
+size, how many magnets there are, and where they sit are not recorded here.
+
+### Field use
+
+The owner has used this counter in at least 10 games in the 2026 season, as
+reported on 2026-10-03. Asked which model that unit is, the owner named
+[down-indicator-selector/](down-indicator-selector/) and described it as "the
+one with 4 slots in a 2 by 2 configuration". The owner wears it on a strap
+through those slots and reports that the fit keeps it from sliding.
+
+The OpenSCAD model in this repository has no strap slots or lugs, so the
+game-used unit differs from it in at least that respect. What the four slots
+are and where they sit is not recorded here.
 
 ### Current state
 
