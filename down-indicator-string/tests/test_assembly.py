@@ -7,8 +7,14 @@ from conftest import inside, render, render_failure
 BODY_T = 6.7
 CORD_R = 3.5
 MID = BODY_T / 2
-HOLE_Y = 10.0
-FLOOR = BODY_T - CORD_R  # 3.2mm under each cord trough
+HOLE_Y = 6.0
+TROUGH_R = 1.25
+TROUGH_OFFSET = 1.0  # each trough axis sits this far inside its face
+TROUGH_DEPTH = TROUGH_R + TROUGH_OFFSET
+FLOOR = BODY_T - TROUGH_DEPTH  # 4.45mm under each cord trough
+FACE_TROUGH_Z = BODY_T - TROUGH_OFFSET  # trough axes
+WRIST_TROUGH_Z = TROUGH_OFFSET
+VOLUME = 7926.680  # mm^3, as rendered by OpenSCAD 2021.01
 BAR_Y = 24.5
 CHAM = 1.0  # chamfer where the outer walls meet each face
 
@@ -17,7 +23,7 @@ def test_the_part_is_one_closed_printable_solid(part):
     assert part.is_watertight
     assert part.is_winding_consistent
     assert part.body_count == 1
-    assert part.volume == approx(7278.693, rel=1e-4)
+    assert part.volume == approx(VOLUME, rel=1e-4)
 
 
 def test_overall_dimensions(part):
@@ -32,17 +38,24 @@ def test_the_cord_slots_survive_the_assembly(part):
         y = sign * HOLE_Y
         assert not inside(part, [0.0, y, MID])[0], "hole is blocked"
         for x in (5.0, 9.0, 13.0):
-            assert not inside(part, [x, y, 6.4])[0], "face channel missing"
-            assert not inside(part, [-x, y, 0.3])[0], "wrist channel missing"
+            assert not inside(part, [x, y, FACE_TROUGH_Z])[0], "face channel missing"
+            assert not inside(part, [-x, y, WRIST_TROUGH_Z])[0], "wrist channel missing"
             assert inside(part, [x, y, FLOOR / 2])[0], "face channel broke through"
 
 
 def test_the_troughs_exit_the_side_walls_and_clear_the_horns(part):
-    """Troughs run in X at y = +-10; the horns start at y = 19.5. No overlap."""
+    """Troughs run in X at y = +-6; the horns start at y = 19.5. No overlap.
+
+    Probed on the trough axes, which sit below the 1mm edge chamfer, so an
+    empty point here is the trough and not the bevel.
+    """
     for sign in (-1, 1):
         y = sign * HOLE_Y
-        assert not inside(part, [14.6, y, 6.4])[0], "face trough does not exit"
-        assert not inside(part, [-14.6, y, 0.3])[0], "wrist trough does not exit"
+        assert not inside(part, [14.6, y, FACE_TROUGH_Z])[0], "face trough does not exit"
+        assert not inside(part, [-14.6, y, WRIST_TROUGH_Z])[0], "wrist trough does not exit"
+        # Just beside each trough the wall is still there at the same height.
+        assert inside(part, [14.6, y + sign * 2.0, FACE_TROUGH_Z])[0]
+        assert inside(part, [-14.6, y + sign * 2.0, WRIST_TROUGH_Z])[0]
     assert inside(part, [12.5, 22.0, MID])[0], "a trough has eaten into a horn"
 
 
@@ -52,8 +65,8 @@ def test_the_lugs_survive_the_assembly(part):
 
 
 def test_a_body_too_thin_to_floor_the_trough_is_rejected():
-    # 5.0mm body -> 1.5mm of floor under a 3.5mm-deep trough.
-    err = render_failure("down_indicator_string.scad", bodyT=5.0)
+    # 4.0mm body -> 1.75mm of floor under a 2.25mm-deep trough.
+    err = render_failure("down_indicator_string.scad", bodyT=4.0)
     assert "floor under the cord trough" in err
 
 
@@ -163,9 +176,10 @@ def test_a_chamfer_that_would_eat_the_horns_is_rejected():
     assert "tip chamfer" in err
 
 
-def test_a_cord_too_fat_for_the_body_is_rejected():
-    # A 10mm cord in a 6.7mm body would leave 1.7mm of floor.
-    err = render_failure("down_indicator_string.scad", cordDia=10.0)
+def test_a_trough_too_deep_for_the_body_is_rejected():
+    # The floor follows the trough, not the hole: a 10mm trough sunk 1mm is
+    # 6.0mm deep and would leave 0.7mm of floor in a 6.7mm body.
+    err = render_failure("down_indicator_string.scad", troughDia=10.0)
     assert "floor under the cord trough" in err
 
 
@@ -174,6 +188,6 @@ def test_a_thinner_body_still_builds_with_a_thinner_floor():
     assert thin.is_watertight
     assert thin.body_count == 1
     assert thin.bounds[1][2] == approx(6.0, abs=1e-6)
-    # 2.5mm of floor, still above the 2.0mm minimum
-    assert inside(thin, [9.0, HOLE_Y, 1.25])[0]
-    assert not inside(thin, [9.0, HOLE_Y, 5.7])[0]
+    # 3.75mm of floor, still above the 2.0mm minimum
+    assert inside(thin, [9.0, HOLE_Y, 3.75 / 2])[0]
+    assert not inside(thin, [9.0, HOLE_Y, 6.0 - TROUGH_OFFSET])[0]
