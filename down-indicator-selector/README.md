@@ -23,6 +23,11 @@ make stl
 make test
 ```
 
+Tools: OpenSCAD 2021.01, GNU Make, the DejaVu Sans font, and for `make test`
+Python 3.12 or newer with `venv`. The font is **not** vendored, and
+`make stl` does not fail without it. The full list is in
+[the repository README](../README.md#what-you-need-to-build).
+
 ## Where it came from
 
 Onshape document `3db840dfeff4095d8508aa97`, workspace

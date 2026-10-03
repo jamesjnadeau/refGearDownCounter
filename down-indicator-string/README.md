@@ -14,6 +14,10 @@ Design and reasoning: [../2026-08-24-finger-loop-indicator-design.md](../2026-08
 `make` creates `.venv` on first use and installs the pinned dependencies from
 `requirements.txt`.
 
+Tools: OpenSCAD 2021.01, GNU Make, and for `make test` Python 3.12 or newer
+with `venv`. The fonts are vendored. The full list is in
+[the repository README](../README.md#what-you-need-to-build).
+
 ## Parameters
 
 Every parameter is declared at the top of `down_indicator_string.scad` and can be

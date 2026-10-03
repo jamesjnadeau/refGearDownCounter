@@ -18,6 +18,47 @@ spec onto a part that actually measures 34 x 79mm, and every figure derived
 from it was wrong. This repository was split out of that one on 2026-08-23 so
 the two cannot be confused again.
 
+## What you need to build
+
+Both models build with the same tools. Nothing else is needed, and no file in
+the repository has to be changed first.
+
+| Tool | Version | Needed for |
+| --- | --- | --- |
+| [OpenSCAD](https://openscad.org/) | 2021.01 | `make stl` and `make test`. The tests' exact-volume figures were verified against this release; another release may shift them. |
+| GNU Make | 4.4.1 used; any recent release should do | `make stl` and `make test` |
+| Python | **3.12 or newer**, with the `venv` module | `make test` only. The pinned `numpy` and `scipy` do not install on anything older. |
+| DejaVu Sans (font) | any | The slider's numerals. It is not vendored. See the warning below. |
+
+The finger-loop model's fonts (Archivo) are vendored in
+`down-indicator-string/fonts/` and need no installation.
+
+`make test` creates a `.venv` in the model's directory and installs the pinned
+packages from `requirements.txt` (`trimesh`, `numpy`, `scipy`, `rtree`,
+`pytest`), so the first run needs network access to PyPI. `make stl` needs
+neither Python nor the network.
+
+On Debian 13 this is everything:
+
+    apt-get install openscad make python3 python3-venv fonts-dejavu-core
+
+Then, in either model's directory:
+
+    make stl      # the printable STL files, in build/
+    make test     # render the model and check it against the tests
+
+**If DejaVu Sans is missing, `make stl` does not fail and prints no warning.**
+OpenSCAD 2021.01 substitutes another face without a word, and the slider's
+numerals come out in the wrong shape. The tie bar that holds the middle of the
+"4" in place is positioned for DejaVu Sans. So run `make test` once on a new
+machine before printing the top shell. Tried on 2026-10-03 with DejaVu Sans
+hidden and Archivo substituted: `make stl` exited normally, and `make test`
+failed two of its 64 tests. A different substitute face has not been tried and
+may not be caught.
+
+Checked on 2026-10-03 on Debian 13 with the versions above and Python 3.13.5.
+Other operating systems have not been tried.
+
 ## Contents
 
 | File | What it is |
