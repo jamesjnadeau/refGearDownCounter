@@ -26,6 +26,8 @@ the two cannot be confused again.
 | [2026-08-24-finger-loop-indicator-design.md](2026-08-24-finger-loop-indicator-design.md) | Design for the finger-loop down indicator: a wrist body anchoring a bungee cord that loops over a finger. Modelled in OpenSCAD under `down-indicator-string/`, not in Onshape. |
 | [down-indicator-string/](down-indicator-string/) | The OpenSCAD model for the above, with a `pytest` suite that renders it and asserts against the mesh. |
 | [down-indicator-selector/](down-indicator-selector/) | All three parts of the slider down counter, converted out of Onshape into OpenSCAD on 2026-08-25, with the same kind of test suite and Onshape's own exports kept alongside as reference meshes. |
+| Parts lists | Draft, with unknowns marked. [Slider](down-indicator-selector/PARTS.md), [finger loop](down-indicator-string/PARTS.md). |
+| Assembly steps | Draft, with unknowns marked. [Slider](down-indicator-selector/ASSEMBLY.md), [finger loop](down-indicator-string/ASSEMBLY.md). |
 | [AGENTS.md](AGENTS.md) | Working notes for agents. Chiefly: if you cannot delete something you created in Onshape, hand back an explicit cleanup list rather than leaving orphans unmentioned. |
 | [LICENSE](LICENSE) | Open Community License v1.1, verbatim. See [Licence](#licence). |
 
