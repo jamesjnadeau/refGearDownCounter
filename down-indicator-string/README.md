@@ -25,10 +25,12 @@ overridden without editing the file:
 | --- | --- | --- |
 | `bodyLen` | 40.0 | Along the forearm |
 | `bodyWid` | 30.0 | Across the wrist |
-| `bodyT` | 6.7 | Sets the trough floor: `bodyT - cordDia/2`, min 2.0mm |
+| `bodyT` | 6.7 | Sets the trough floor: `bodyT - (troughDia/2 + troughOffset)`, 4.45mm at defaults, min 2.0mm |
 | `edgeCham` | 1.0 | 45° bevel where each outer wall meets a face; 0 disables |
-| `cordDia` | 7.0 | Hole and trough diameter; deeper troughs thin the floor |
-| `holeY` | 10.0 | Hole centres |
+| `cordDia` | 7.0 | Through-hole diameter. The troughs are sized separately |
+| `holeY` | 6.0 | Hole centres at `(0, +holeY)` and `(0, -holeY)` |
+| `troughDia` | 2.5 | Surface trough diameter; independent of `cordDia` |
+| `troughOffset` | 1 | Trough axis off its face: positive sinks it into the body for a groove deeper than a half-round, negative lifts it out for a shallower one, 0 puts the axis on the face |
 | `bandWidth` | 20.0 | 18 if the 4.9mm horns prove marginal |
 | `bandClear` | 0.2 | Added to `bandWidth` for the lug gap |
 | `barStandoff` | 4.5 | |
@@ -42,12 +44,14 @@ overridden without editing the file:
 | `logoX` | -8.75 | Centre across the wrist; must be negative (see below) |
 | `logoY` | 0.0 | Centre along the forearm |
 
-Seven combinations are rejected outright rather than silently producing an
-unbuildable part: a body at or thicker than the cord diameter, a cord neck
-outside 1.2–3.5mm, horns thinner than 4.0mm, holes that break out of the
-end, less than 2.0mm of wall between the two cord holes, and a tip chamfer at
-or past half the horn thickness. The last two would otherwise render without
-an error: merged holes sever the slab into two pieces, and an oversized
+Eight combinations are rejected outright rather than silently producing an
+unbuildable part: less than 2.0mm of floor under a cord trough, a trough
+offset that stops the trough being an open groove, horns thinner than 4.0mm,
+holes or troughs that break out of the end, less than 2.0mm of wall between
+the two cord holes, an edge chamfer at or past half the body thickness, an
+edge chamfer at or past half the horn thickness, and a tip chamfer at or past
+half the horn thickness. Two of these would otherwise render without an
+error: merged holes sever the slab into two pieces, and an oversized tip
 chamfer self-intersects the horn polygon and deletes all four lugs.
 
 Five more guard the logo: a mark on the wrong side of the centre line, one
