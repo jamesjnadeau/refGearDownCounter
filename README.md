@@ -162,7 +162,7 @@ confirming — see the spec.
 
 ## The finger-loop down indicator
 
-A separate device, and the first one whose model was version-controlled here
+A third device, and the first one whose model was version-controlled here
 rather than living in Onshape. A 40 x 30 x 6.7mm body on a 20mm watch strap,
 with two 7mm through-holes. Each hole has a 7mm channel on the watch face
 running out to one side edge and a matching channel on the wrist side running
