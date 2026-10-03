@@ -1,8 +1,18 @@
 # Ref Gear — Down Counter
 
 Football down counters — the wrist-worn devices a referee uses to track which
-down it is. This repository covers the **mechanical** ones, whose models live
-in Onshape rather than here; what is version-controlled is the documentation.
+down it is. This repository covers the **mechanical** ones. Both models are
+here as OpenSCAD source, each with a test suite, and can be built from this
+repository alone:
+
+- [down-indicator-selector/](down-indicator-selector/) — the slider down
+  counter, three printed parts.
+- [down-indicator-string/](down-indicator-string/) — the finger-loop down
+  indicator, one printed part.
+
+The slider began in Onshape and was converted on 2026-08-25. The Onshape
+documents are still recorded below, because the band lugs exist only there
+and are not yet in the OpenSCAD model.
 
 ## These are not the Watchy ref counter
 
@@ -152,7 +162,7 @@ confirming — see the spec.
 
 ## The finger-loop down indicator
 
-A third device, and the first one whose model is version-controlled here
+A separate device, and the first one whose model was version-controlled here
 rather than living in Onshape. A 40 x 30 x 6.7mm body on a 20mm watch strap,
 with two 7mm through-holes. Each hole has a 7mm channel on the watch face
 running out to one side edge and a matching channel on the wrist side running
@@ -202,6 +212,7 @@ production and repair, but may not replicate it commercially without a
 separate licence. The work must not be subjected to automated text or data
 mining without explicit permission.
 
-The licence covers the design work recorded here and the corresponding Onshape
-geometry. Both are needed to build the part, and only the documentation is
-version-controlled in this repository.
+The licence covers the design work recorded here: the OpenSCAD models, the
+documentation, and the corresponding Onshape geometry. The OpenSCAD models in
+this repository are enough to build the printed parts. The band lugs for the
+slider are the exception: they exist only in the Onshape working copy.
