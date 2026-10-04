@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2 by 2 wrist counter: repair guide</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site"><a href="index.html">RefGear down counters</a> <span>· repair guides</span></header>
+
+<h1>2 by 2 wrist counter: repair guide</h1>
+<p class="lede">One button moves between four positions set in a square, 14 mm apart. It is worn on the wrist. There are two tops: one for a watch strap on spring bars, one for a strap threaded through it.</p>
+
+<div class="note">
+<strong>Draft.</strong> Written from the design files and the designer's answers. No step on this page has been followed on a printed counter. The marks are explained on the <a href="index.html#marks">front page</a>.
+</div>
+
+<nav class="contents" aria-label="On this page">
+<ul>
+<li><a href="#parts">Parts</a></li>
+<li><a href="#tools">Tools</a></li>
+<li><a href="#open">Open it</a></li>
+<li><a href="#replace">Replace a part</a></li>
+<li><a href="#close">Close it</a></li>
+<li><a href="#damage">Damage</a></li>
+<li><a href="#unconfirmed">Still to confirm</a></li>
+</ul>
+</nav>
+
+<h2 id="parts">The parts and what each is called</h2>
+<table>
+<tr><th>Part</th><th>How many</th><th>What it is</th><th>Source</th></tr>
+<tr><td>Top shell, watch-strap top</td><td rowspan="2">1 of the two</td><td>34 × 50 × 7.1 mm. <code>top.step</code>. A 3.1 mm plate with a rounded square opening 22.4 mm across, and a skirt underneath that the bottom shell presses into. Four horns, two at each end, 6 mm wide and 22.0 mm apart, each with a 1.1 mm cross hole for a spring bar.</td><td><span class="tag files">From the files</span></td></tr>
+<tr><td>Top shell, elastic-strap top</td><td>34 × 50 × 7.1 mm. <code>top-elastic-strap.step</code>. The same middle. No horns. Each end has an opening 24.0 mm wide and 5 mm long, closed at the tip by a low rounded bar that the strap passes over.</td><td><span class="tag files">From the files</span></td></tr>
+<tr><td>Bottom shell</td><td>1</td><td>30 × 30 × 5.1 mm. The back. Four round holes, 6.03 mm across and 3.1 mm deep, on a 14 mm square, facing the button. They do not go through.</td><td><span class="tag files">From the files</span></td></tr>
+<tr><td>Button</td><td>1</td><td>12 × 12 × 5 mm. A ring: an 8 mm sleeve on a 12 mm flange 1.0 mm thick, with a 6.03 mm hole right through. The flange sits in a pocket under the top's plate, so the button cannot come out through the opening. There is no button file in this counter's folder; it is the Umpire Counter's <code>button.step</code>.</td><td><span class="tag files">From the files</span></td></tr>
+<tr><td>Magnets</td><td><span class="tag unknown">Not recorded</span></td><td>Common 6 mm × 2 mm disc magnets. How many there are, which holes they sit in, and which way round they face are not recorded.</td><td><span class="tag designer">From the designer</span></td></tr>
+<tr><td>Pin</td><td><span class="tag unknown">Not recorded</span></td><td>A magnetic pin that rides with the button and holds it at each position. Its size and what it is made of are not recorded. It may be a stack of the magnets; that is not recorded either.</td><td><span class="tag designer">From the designer</span></td></tr>
+<tr><td>Strap</td><td>1</td><td>Watch-strap top: a 22 mm watch strap. Elastic-strap top: a strap up to 24 mm wide; the designer wears a 24 mm Velcro strap. Type and length are not recorded.</td><td><span class="tag files">From the files</span> <span class="tag designer">From the designer</span></td></tr>
+<tr><td>Spring bars</td><td>2 with the watch-strap top, none with the other</td><td>For a 22 mm strap, with tips that fit a 1.1 mm hole. Length is not recorded.</td><td><span class="tag files">From the files</span></td></tr>
+</table>
+<p>There are no screws. The two shells are held together by a press fit, the same fit as the slider's. <span class="tag files">From the files</span> Whether any glue is used is <span class="tag unknown">Not recorded</span>.</p>
+<p>The same button, pin, and magnets are used in the <a href="slider.html">pocket slider</a> and the <a href="umpire-counter.html">Umpire Counter</a>. <span class="tag designer">From the designer</span></p>
+<p>Neither top carries numerals or any marking, and which position stands for which down is <span class="tag unknown">Not recorded</span>.</p>
+<p>Full parts list, fit, and every unknown: <a href="https://github.com/jamesjnadeau/refGearDownCounter/blob/main/down-indicator-watch/README.md"><code>down-indicator-watch/README.md</code></a>.</p>
+
+<h2 id="tools">Tools needed</h2>
+<ul>
+<li>For the printed parts: a 3D printer, or someone with one. The shells are STEP files in <a href="https://github.com/jamesjnadeau/refGearDownCounter/tree/main/down-indicator-watch"><code>down-indicator-watch/</code></a>, and the button is <a href="https://github.com/jamesjnadeau/refGearDownCounter/tree/main/down-counter-umpire"><code>down-counter-umpire/button.step</code></a>. PrusaSlicer, OrcaSlicer, and Bambu Studio open STEP files directly. Print material and settings are <span class="tag unknown">Not recorded</span>.</li>
+<li>For opening and closing: <span class="tag unknown">Not recorded</span>. We do not yet know whether the shells come apart by hand or need a tool.</li>
+<li>For the watch-strap top: whatever you use to change a watch strap on spring bars. Which tool suits these horns is <span class="tag unchecked">Not checked on a printed unit</span>.</li>
+<li>A tray, and a phone for photos.</li>
+</ul>
+
+<h2 id="open">How to open it</h2>
+<p>Take the strap off first; see <a href="#replace-strap">strap</a>. Then, what the files show: <span class="tag files">From the files</span></p>
+<ul>
+<li>The bottom shell sits inside the top shell's skirt. The opening it was pressed in through is about 0.18 mm a side narrower than the bottom shell, so the skirt grips it.</li>
+<li>The bottom shell stands 1.1 mm proud of the skirt all the way round. That edge is the only part of it you can reach.</li>
+<li>The holes in the bottom shell are closed at the back, over a 2.0 mm floor. There is nothing to push through from behind.</li>
+</ul>
+<p>So the only way apart is to bring the bottom shell straight back out of the skirt, the way it went in.</p>
+<div class="stop">
+<span class="tag unchecked">Not checked on a printed unit</span> Nobody has opened a pressed-together counter and recorded how: by hand or with a tool, how much effort it takes, and whether the shells still hold after they go back together. Until that is checked we cannot give a safe method. Do not lever against the skirt wall; it is 2.0 mm thick.
+</div>
+
+<h2 id="replace">How to replace each part</h2>
+<p>Every replacement starts with the counter open and ends with <a href="#close">closing it</a>.</p>
+
+<h3 id="replace-button">Button</h3>
+<ol>
+<li>With the bottom shell out, lift the button out of the pocket on the underside of the top shell. It cannot come out through the face. <span class="tag files">From the files</span></li>
+<li>Move the pin and magnets from the old button to the new one, the same way round. How they are held in the button is <span class="tag unknown">Not recorded</span>.</li>
+<li>Put the new button into the pocket, sleeve through the opening. <span class="tag files">From the files</span></li>
+</ol>
+
+<h3 id="replace-magnets">Pin and magnets</h3>
+<ol>
+<li>Before you take any magnet out, photograph which holes hold one, and mark the face that points up on each. A magnet put back upside down will push where it should pull.</li>
+<li>Replacement magnets are 6 mm × 2 mm discs. <span class="tag designer">From the designer</span> On paper one fits the holes and the button's hole with 0.015 mm to spare a side, so expect a push fit. <span class="tag files">From the files</span></li>
+<li>Put each new magnet where the old one was, the same face up.</li>
+</ol>
+<div class="stop">
+<span class="tag unknown">Not recorded</span> How many magnets there are, where they sit, which way they face, what the pin is, and whether the magnets are pressed in or glued. If a magnet does not come out easily, stop: it may be glued, and we do not know with what.
+</div>
+
+<h3 id="replace-top">Top shell</h3>
+<ol>
+<li>Take the button out of the old top and put it into the pocket of the new one. <span class="tag files">From the files</span></li>
+<li>Close it with the old bottom shell.</li>
+</ol>
+<p>Either top fits the same bottom shell and button, so this is also how to change from one kind of strap to the other. <span class="tag files">From the files</span></p>
+
+<h3 id="replace-bottom">Bottom shell</h3>
+<ol>
+<li>Move the magnets from the old bottom shell to the same holes in the new one, the same face up. See <a href="#replace-magnets">pin and magnets</a>.</li>
+<li>Close it with the old top shell.</li>
+</ol>
+
+<h3 id="replace-strap">Strap</h3>
+<p>The strap comes off without opening the counter.</p>
+<ul>
+<li><strong>Watch-strap top.</strong> The strap sits on two spring bars between the horns. Each bar's tips sit in the 1.1 mm cross holes. Compress a bar to free it, slide the new 22 mm strap on, and spring the tips back into the holes. <span class="tag files">From the files</span> <span class="tag unchecked">Not checked on a printed unit</span></li>
+<li><strong>Elastic-strap top.</strong> No spring bars. The strap passes over the bar at each end and through the opening. Pull the old strap out and thread the new one the same way. A 24 mm strap fills the opening with no room to spare. <span class="tag files">From the files</span> The designer reports that this tight fit keeps the counter from sliding. <span class="tag designer">From the designer</span></li>
+</ul>
+<p>Which strap we supply with each top, and its length, is <span class="tag unknown">Not recorded</span>. Copy the one you have.</p>
+
+<h3>Cord</h3>
+<p>None. This counter has no cord.</p>
+
+<h2 id="close">How to close it</h2>
+<ol>
+<li>Lay the top shell face down.</li>
+<li>Put the button in first, into the pocket, sleeve through the opening. Once the shells are together the button cannot be added. <span class="tag files">From the files</span></li>
+<li>Turn the bottom shell so its holes face the button. It is square and goes in any of four ways round. <span class="tag files">From the files</span> Before you opened it you photographed which holes hold magnets; put it back the same way round, because whether the way round matters is <span class="tag unknown">Not recorded</span>.</li>
+<li>Press the bottom shell into the skirt until it seats against the underside of the plate. It then stands 1.1 mm proud of the skirt; the counter is 8.2 mm thick, and 10.1 mm over the button. <span class="tag files">From the files</span> How much force that takes, and whether a tool is needed, is <span class="tag unchecked">Not checked on a printed unit</span>.</li>
+<li>Check: the button moves freely in the square opening and holds at each of the four positions. How firmly it should hold is <span class="tag unknown">Not recorded</span>.</li>
+<li>Fit the strap.</li>
+</ol>
+
+<h2 id="damage">What damage looks like, and what not to force</h2>
+<p>No damaged counter has been examined and written up, so what a failed part looks like on this counter is <span class="tag unknown">Not recorded</span>. These are the thinnest places in the design, and so the places to look at and to keep tools away from: <span class="tag files">From the files</span></p>
+<table>
+<tr><th>Place</th><th>Size</th><th>Do not</th></tr>
+<tr><td>Skirt wall of the top shell</td><td>2.0 mm</td><td>Lever against it or squeeze it to free the bottom shell.</td></tr>
+<tr><td>Button flange</td><td>1.0 mm thick</td><td>Pull the button out through the face. It only comes out from underneath.</td></tr>
+<tr><td>Horns of the watch-strap top</td><td>6 mm wide, with a 1.1 mm hole through each</td><td>Spread the horns to get a spring bar in or out. Compress the bar instead.</td></tr>
+<tr><td>End bars of the elastic-strap top</td><td>A rounded bar across a 24 mm opening</td><td>Force a strap wider than 24 mm through, or lever on the bar.</td></tr>
+<tr><td>Floor under each magnet hole</td><td>2.0 mm</td><td>Drive a magnet out from the back, or drill it.</td></tr>
+</table>
+<p>Stop and replace the part if you find a crack, a piece that stays bent, or a shell that no longer grips the other. If the button slides but no longer holds at a position, look at the pin and magnets first.</p>
+
+<h2 id="unconfirmed">Still to confirm on a printed unit</h2>
+<ol>
+<li>How the shells come apart: by hand or with a tool, and where to grip.</li>
+<li>Changing a spring bar on the watch-strap top, and which spring bar length fits.</li>
+<li>Whether the press fit still holds after the counter has been opened and closed.</li>
+<li>How much force closing takes.</li>
+<li>How many magnets, in which holes, which way round, and whether pressed or glued.</li>
+<li>What the pin is, and how it and the magnets are held in the button.</li>
+<li>Print material and settings for replacement parts.</li>
+<li>Which position is which down, and whether the bottom shell must go back a particular way round.</li>
+<li>Which strap goes with each top, and its length.</li>
+<li>What a worn or broken part looks like.</li>
+</ol>
+
+<footer><a href="index.html">All repair guides</a> · Draft, 2026-10-04 · <a href="https://github.com/jamesjnadeau/refGearDownCounter/blob/main/LICENSE">Licence: OCL v1.1</a></footer>
+</body>
+</html>
