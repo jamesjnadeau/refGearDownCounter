@@ -36,8 +36,8 @@ carried in a pocket.
 
 ## Taking it apart
 
-**Unknown.** The repository does not record whether the press fit can be
-opened again without damage. This matters for replacing parts.
+No tool is needed. Hold the top shell by its sides and push on the pin or the
+button; that pushes the bottom shell out. From the owner, 2026-10-04.
 
 ## What is still needed to finish this page
 

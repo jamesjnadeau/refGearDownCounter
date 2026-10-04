@@ -24,15 +24,6 @@ GUIDES = {
 # Every guide answers the same questions, under the same anchors.
 SECTIONS = ["parts", "tools", "open", "replace", "close", "damage", "unconfirmed"]
 
-# Linked files that are not on main yet. Each arrives with the pull request
-# named beside it.
-PENDING = {
-    "down-indicator-selector/PARTS.md": 8,
-    "down-indicator-selector/ASSEMBLY.md": 8,
-    "down-indicator-string/PARTS.md": 8,
-    "down-indicator-string/ASSEMBLY.md": 8,
-}
-
 VOID = {"meta", "link", "br", "hr", "img", "input"}
 
 
@@ -134,8 +125,6 @@ class SiteTest(unittest.TestCase):
                 if not match:
                     continue
                 path = match.group(1)
-                if path in PENDING:
-                    continue
                 self.assertTrue((ROOT / path).exists(), f"{name}: {href}")
 
 
