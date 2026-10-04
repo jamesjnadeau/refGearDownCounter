@@ -1,7 +1,6 @@
 # Finger-loop down indicator — assembly steps
 
-**Draft, started 2026-10-03. Not complete.** The repository has no record of
-this part being printed or assembled. Where a step is not known it reads
+**Draft, started 2026-10-03. Not complete.** Where a step is not known it reads
 **unknown**. Nothing here is guessed. Parts are in [PARTS.md](PARTS.md).
 
 ## What the model tells us
@@ -21,7 +20,7 @@ this part being printed or assembled. Where a step is not known it reads
 | 2 | Cut the cord to length. | Length **unknown**. |
 | 3 | Fit the cord to the body. | **Unknown.** The model's own notes say the cord is threaded through the holes. A later commit calls the groove a "snap-in groove". Which the owner does, and in what order, is not recorded. |
 | 4 | Close the cord into a loop. | **Unknown.** |
-| 5 | Fit the strap. | **Unknown.** The lugs take spring bars across a 20.2mm gap. The owner's strap is 24mm wide. How it is fitted is not recorded. |
+| 5 | Fit the strap. | **Unknown.** The lugs take spring bars across a 20.2mm gap, for a 20mm band. Which strap is used is not recorded. |
 | 6 | Check: the body does not slide on the wrist, and the loop reaches each finger and stays on it. | The check follows from how the indicator works. No test of it is recorded. |
 
 ## Open tests the design calls for

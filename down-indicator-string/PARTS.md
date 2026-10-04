@@ -17,14 +17,16 @@ Build it with `make stl`.
 | Part | Qty | What is known | Source |
 | --- | --- | --- | --- |
 | Cord | 1 | 1/8" (3.2mm) bungee cord. Length **unknown**. How the ends are finished or joined into a loop is **unknown**. | Owner, 2026-10-03 |
-| Strap | 1 | The owner's is a 24mm-wide Velcro strap; "any suitable strap that fits would do". Length **unknown**. See the note below. | Owner, 2026-10-03 |
-| Spring bars | **unknown** | The model has two pairs of lugs with 1.1mm bores, sized for a standard bar with a 1.78mm body and about 0.9mm tips, across a 20.2mm gap. Whether the owner's strap is fitted with spring bars is **unknown**. Bar length is **unknown**. | Model, and the lugs spec |
+| Strap | 1 | A 20mm band, from the lugs as modelled. "Any suitable strap that fits would do". Type and length **unknown**. See the note below. | Model; owner, 2026-10-03 |
+| Spring bars | **unknown** | The model has two pairs of lugs with 1.1mm bores, sized for a standard bar with a 1.78mm body and about 0.9mm tips, across a 20.2mm gap. Whether the strap is fitted with spring bars is **unknown**. Bar length is **unknown**. | Model, and the lugs spec |
 | Fasteners | 0 | None mentioned. | — |
 
 **Strap width.** The lugs as modelled take a 20mm band (a 20.2mm gap). The
-owner's strap is 24mm wide. The owner said on 2026-10-03 that the current fit
-is fine and keeps the body from sliding. How a 24mm strap is fitted to a
-20.2mm gap is **unknown**.
+24mm-wide Velcro strap the owner described on 2026-10-03, and the tight fit
+that keeps it from sliding, belong to a different counter: the 2 by 2 wrist
+counter in [`down-indicator-watch/`](../down-indicator-watch/), as the owner
+said on 2026-10-04. [README.md](README.md) still records that strap against
+this model and needs the same correction.
 
 Facts from the model that bear on the cord:
 
@@ -47,6 +49,5 @@ Facts from the model that bear on the cord:
 ## What is still needed to finish this list
 
 1. Cord length, and how the loop is closed.
-2. How the strap is fitted, and whether spring bars are used.
+2. Which strap is used, and whether it is fitted with spring bars.
 3. Print settings.
-4. A record that this part has been printed and worn. The repository has none.

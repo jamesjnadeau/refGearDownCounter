@@ -21,7 +21,7 @@ Build them with `make stl`. Sizes are the models' own.
 | --- | --- | --- | --- |
 | Magnets | **unknown** | Common 6mm × 2mm | Owner, 2026-10-03 |
 | Pin | **unknown** | The detent is a magnetic pin that slides between the four positions and holds at each. Its size and material are **unknown**. Whether the pin is a separate part or is itself a magnet is **unknown**. | Owner, 2026-10-03 |
-| Strap | **unknown** | The owner wears the counter on a strap through "4 slots in a 2 by 2 configuration". This model has no slots. Strap type, width, and length for this counter are **unknown**. | Owner, 2026-10-03 |
+| Strap | 0 | None. This is a pocket counter: it is carried in a pocket and has no strap fitting. | Owner, 2026-10-04 |
 | Fasteners | 0 | None. The two shells press together. | Owner, 2026-10-03 |
 | Glue | **unknown** | Not mentioned anywhere. | — |
 
@@ -48,6 +48,4 @@ conclusion from them:
 
 1. How many magnets, and where each one sits.
 2. The pin: what it is, and its size.
-3. The strap fitting: what the four slots are, where they sit, and what strap
-   goes through them.
-4. Print settings for each part.
+3. Print settings for each part.
