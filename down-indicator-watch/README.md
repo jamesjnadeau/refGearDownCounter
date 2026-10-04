@@ -90,6 +90,11 @@ The bottom shell seats against the underside of the plate and stands 1.1mm
 proud of the skirt. The finished counter is 34 × 50mm and 8.2mm thick, 10.1mm
 over the button, which stands 1.9mm above the face.
 
+## Taking it apart
+
+No tool is needed. Hold the top shell by its sides and push on the pin or the
+button; that pushes the bottom shell out. From the owner, 2026-10-04.
+
 ## Fit, checked on the solids
 
 - **The shells are a press fit.** The cavity is 30.0mm square at the plate and
