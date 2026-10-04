@@ -174,8 +174,20 @@ The detent itself is **not modelled, here or in Onshape**. The button's bore
 and the bottom shell's holes are both 6.03mm, and what runs through the one
 into the other is a **magnetic pin**, as the owner confirmed on 2026-10-03.
 It slides between the indicator positions and is held locked at each station
-until the referee moves it. No fastener is drawn anywhere, so the pin and its
-magnets — sizes, and where the magnets sit — are not recorded here.
+until the referee moves it. The magnets are common 6mm x 2mm ones, as the
+owner said on 2026-10-03. No fastener is drawn anywhere, so the pin's size,
+how many magnets there are, and where they sit are not recorded here.
+
+## Field use
+
+The owner has used this counter in games, as reported on 2026-10-04. It is a
+pocket counter: it is carried in a pocket like the
+[Football Umpire Counter](../down-counter-umpire/), without that counter's
+track for the ball's position on the field. It has no strap and needs none. The
+model here has no strap slots or lugs, which agrees with that.
+
+The counter the owner wears on the wrist is a different one, the 2 by 2 wrist
+counter in [`down-indicator-watch/`](../down-indicator-watch/).
 
 ## Layout
 

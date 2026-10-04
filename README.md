@@ -159,9 +159,20 @@ bottom plate, at 15mm spacing.
 
 The detent is a **magnetic pin**, as the owner confirmed on 2026-10-03. The
 holes are its stations: the pin slides between the indicator positions and is
-held locked at each one until the referee moves it. The pin and its magnets
-are not modelled — the assembly is empty and no fastener is drawn — so their
-sizes are not recorded here.
+held locked at each one until the referee moves it. The magnets are common
+6mm x 2mm ones, as the owner said on 2026-10-03. The pin and the magnets are
+not modelled — the assembly is empty and no fastener is drawn — so the pin's
+size, how many magnets there are, and where they sit are not recorded here.
+
+### Field use
+
+The owner has used this counter in games, as reported on 2026-10-04. It is a
+pocket counter: it is carried in a pocket like the
+[Football Umpire Counter](down-counter-umpire/), without that counter's track
+for the ball's position on the field. It has no strap and needs none.
+
+The counter the owner wears on the wrist is a different one, the 2 by 2 wrist
+counter in [down-indicator-watch/](down-indicator-watch/).
 
 ### Current state
 
