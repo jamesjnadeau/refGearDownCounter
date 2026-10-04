@@ -28,10 +28,12 @@ one watertight body. Slicers that read STEP (PrusaSlicer, OrcaSlicer, Bambu
 Studio) open them directly; there are no STL files here.
 
 **There is no button file in this folder.** The button from
-[`down-counter-umpire/button.step`](../down-counter-umpire/) fits both tops and
-the bottom shell with no overlap at all four positions, and the openings,
-pockets and holes are the same sizes as that counter's. *Inferred:* that is the
-button to print. The owner has not said so.
+[`down-counter-umpire/button.step`](../down-counter-umpire/) is the one to
+print. The owner said on 2026-10-04 that this counter, the slider and the
+Umpire Counter "all use the same button/pin and magnets". The files agree: that
+button fits both tops and the bottom shell with no overlap at all four
+positions, and the openings, pockets and holes are the same sizes as that
+counter's.
 
 **Both tops** share the same middle: a 3.1mm plate with a 4.0mm skirt around a
 30mm square cavity. The opening is a rounded square 22.4mm across, with a 27mm
@@ -52,7 +54,7 @@ holes. Each end has an opening **24.0mm** wide and 5mm long, closed at the tip
 by a low rounded bar of 3mm radius. *Inferred:* the strap passes over the bar
 and down through the opening at each end, so this top takes a strap up to
 **24mm** wide, with no room to spare at 24mm, and needs no spring bars. The
-owner's own strap is a 24mm Velcro strap.
+owner's own strap is a 24mm Velcro strap; see [Field use](#field-use).
 
 **Bottom shell.** Four round holes, 6.03mm across and 3.1mm deep, over a 2.0mm
 floor, on a 14mm square.
@@ -63,9 +65,9 @@ floor, on a 14mm square.
 | --- | --- | --- |
 | Top shell, printed | 1 | `top.step` or `top-elastic-strap.step` |
 | Bottom shell, printed | 1 | `Bottom.step` |
-| Button, printed | 1 | No file here. *Inferred:* `../down-counter-umpire/button.step`, 12 × 12 × 5mm |
-| Magnets | **not recorded** | *Inferred:* 6mm × 2mm discs, as on the slider and the Umpire Counter; the holes are the same 6.03mm. The bottom shell has 4 holes that take one each, with 1.1mm to spare in depth. How many magnets, and where they sit, is not recorded. |
-| Pin | **not recorded** | Not drawn or sized anywhere. *Inferred:* one, 6mm across, as on the slider. |
+| Button, printed | 1 | No file here. `../down-counter-umpire/button.step`, 12 × 12 × 5mm (owner, 2026-10-04) |
+| Magnets | **not recorded** | 6mm × 2mm discs, the same as the slider and the Umpire Counter (owner, 2026-10-04); the holes are the same 6.03mm. The bottom shell has 4 holes that take one each, with 1.1mm to spare in depth. How many magnets, and where they sit, is not recorded. |
+| Pin | **not recorded** | The same pin as the slider and the Umpire Counter (owner, 2026-10-04). It is not drawn or sized anywhere. *Inferred:* one, 6mm across. |
 | Strap | 1 | With `top.step`: a 22mm watch strap. With `top-elastic-strap.step`: a strap up to 24mm wide. Type and length not recorded. |
 | Spring bars | 2 with `top.step`, 0 with the other | For a 22mm strap, with tips that fit a 1.1mm hole. Length and supplier not recorded. |
 | Fasteners, glue | 0 | None in the files. The shells press together. |
@@ -101,11 +103,20 @@ over the button, which stands 1.9mm above the face.
   0.015mm a side. *Inferred:* printed holes usually come out a little small,
   so expect a push fit.
 
+## Field use
+
+The owner has worn this counter in at least 10 games in the 2026 season, as
+reported on 2026-10-03 and confirmed as this model on 2026-10-04: "the one
+with 4 slots in a 2 by 2 configuration". It is worn on a 24mm Velcro strap,
+and the owner reports that the strap slots as sized keep it from sliding.
+*Inferred:* a 24mm strap through slots is `top-elastic-strap.step`; it is too
+wide for the 22mm gap between the horns of `top.step`.
+
 ## Not known
 
-- Whether the button is the Umpire Counter's.
 - How many magnets, where they sit, and which way their poles face. What the
   pin is.
 - Which position stands for which down. Nothing on the part says.
-- Which top is the one in use, and with which strap.
+- The strap for each top: its type and length. Either top may be used; the
+  builder picks one.
 - Print material, layer height, and which face goes on the bed.
