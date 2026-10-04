@@ -115,15 +115,13 @@ size, how many magnets there are, and where they sit are not recorded here.
 
 ### Field use
 
-The owner has used this counter in at least 10 games in the 2026 season, as
-reported on 2026-10-03. Asked which model that unit is, the owner named
-[down-indicator-selector/](down-indicator-selector/) and described it as "the
-one with 4 slots in a 2 by 2 configuration". The owner wears it on a strap
-through those slots and reports that the fit keeps it from sliding.
+The owner has used this counter in games, as reported on 2026-10-04. It is a
+pocket counter: it is carried in a pocket like the
+[Football Umpire Counter](down-counter-umpire/), without that counter's track
+for the ball's position on the field. It has no strap and needs none.
 
-The OpenSCAD model in this repository has no strap slots or lugs, so the
-game-used unit differs from it in at least that respect. What the four slots
-are and where they sit is not recorded here.
+The counter the owner wears on the wrist is a different one, the 2 by 2 wrist
+counter in [down-indicator-watch/](down-indicator-watch/).
 
 ### Current state
 

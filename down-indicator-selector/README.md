@@ -175,13 +175,14 @@ how many magnets there are, and where they sit are not recorded here.
 
 ## Field use
 
-The owner has used this counter in at least 10 games in the 2026 season, as
-reported on 2026-10-03, and described the unit as "the one with 4 slots in a
-2 by 2 configuration", worn on a strap through those slots.
+The owner has used this counter in games, as reported on 2026-10-04. It is a
+pocket counter: it is carried in a pocket like the
+[Football Umpire Counter](../down-counter-umpire/), without that counter's
+track for the ball's position on the field. It has no strap and needs none. The
+model here has no strap slots or lugs, which agrees with that.
 
-The model here has no strap slots or lugs, so the game-used unit differs from
-it in at least that respect. What the four slots are and where they sit is
-not recorded.
+The counter the owner wears on the wrist is a different one, the 2 by 2 wrist
+counter in [`down-indicator-watch/`](../down-indicator-watch/).
 
 ## Layout
 
